@@ -1,0 +1,20 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: notebooks\intro.ipynb
+chapters:
+  - file: notebooks\eda
+    title: Exploración de Datos (EDA)
+
+  - file: notebooks/metodologia_modelos
+    title: Metodología y Modelos
+
+  - file: notebooks/resultados
+    title: Resultados y Discusión
+
+  - file: notebooks/conclusiones
+    title: Conclusiones
+
+  - file: notebooks/referencias
+    title: Referencias
