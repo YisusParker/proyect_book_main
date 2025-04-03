@@ -1,0 +1,599 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Contextualización: &#8212; Analisis de localidades y aprovechamiento solar en Barranquilla: Análisis climático por localidad y estimación del potencial energético</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/intro';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Exploración de Datos (EDA)" href="eda.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="#">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Analisis de localidades y aprovechamiento solar en Barranquilla: Análisis climático por localidad y estimación del potencial energético - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Analisis de localidades y aprovechamiento solar en Barranquilla: Análisis climático por localidad y estimación del potencial energético - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1 current active">
+                <a class="reference internal" href="#">
+                    Contextualización:
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="eda.html">Exploración de Datos (EDA)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metodologia_modelos_regresion.html">Modelos de Regresión</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metodologia_modelos_clasificacion.html">Modelos de Clasificación</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/YisusParker/jbook_ml20251" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/intro.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Contextualización:</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#microclimas-urbanos-en-barranquilla-estudio-conjunto-sobre-la-variabilidad-meteorologica-por-localidad-y-la-prediccion-del-potencial-de-energia-solar"><strong>Microclimas urbanos en Barranquilla: Estudio conjunto sobre la variabilidad meteorológica por localidad y la predicción del potencial de energía solar</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduccion"><strong>Introducción:</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#glosario-de-variables-climaticas-y-meteorologicas"><strong>Glosario de Variables Climáticas y Meteorológicas</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-atmosfericas-y-meteorologicas"><strong>Variables Atmosféricas y Meteorológicas</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-relacionadas-con-la-energia-solar"><strong>Variables Relacionadas con la Energía Solar</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-adicionales"><strong>Variables Adicionales</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-geograficas"><strong>Variables Geográficas</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos"><strong>Objetivos:</strong></a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="contextualizacion">
+<h1><strong>Contextualización:</strong><a class="headerlink" href="#contextualizacion" title="Permalink to this heading">#</a></h1>
+<section id="microclimas-urbanos-en-barranquilla-estudio-conjunto-sobre-la-variabilidad-meteorologica-por-localidad-y-la-prediccion-del-potencial-de-energia-solar">
+<h2><strong>Microclimas urbanos en Barranquilla: Estudio conjunto sobre la variabilidad meteorológica por localidad y la predicción del potencial de energía solar</strong><a class="headerlink" href="#microclimas-urbanos-en-barranquilla-estudio-conjunto-sobre-la-variabilidad-meteorologica-por-localidad-y-la-prediccion-del-potencial-de-energia-solar" title="Permalink to this heading">#</a></h2>
+<section id="introduccion">
+<h3><strong>Introducción:</strong><a class="headerlink" href="#introduccion" title="Permalink to this heading">#</a></h3>
+<p>En las últimas décadas, el crecimiento acelerado de las áreas urbanas ha generado cambios significativos en los patrones climáticos locales, dando lugar a la formación de microclimas urbanos. Estos microclimas se caracterizan por variaciones en la temperatura, humedad, velocidad del viento y otros factores meteorológicos, que difieren de las condiciones climáticas de las áreas rurales circundantes. Comprender y clasificar estos microclimas es crucial para la planificación urbana, la gestión de recursos energéticos y la mejora de la calidad de vida de los habitantes.</p>
+<p>Además, en un contexto global de transición hacia fuentes de energía renovable, la energía solar se ha posicionado como una de las alternativas más prometedoras. Sin embargo, la eficiencia de los sistemas de captación de energía solar depende en gran medida de las condiciones meteorológicas locales, como la radiación solar, la nubosidad y la temperatura. Por lo tanto, predecir con precisión el potencial de energía solar en diferentes áreas urbanas es fundamental para optimizar la instalación de paneles solares y maximizar su rendimiento.</p>
+<p>Este proyecto combina técnicas de machine learning para abordar dos problemas clave:</p>
+<p>Clasificación de microclimas urbanos: Identificar y categorizar las variaciones climáticas en diferentes barrios de una ciudad.</p>
+<p>Predicción de energía solar potencial: Estimar la cantidad de energía solar que puede ser captada en función de las condiciones meteorológicas.</p>
+</section>
+<hr class="docutils" />
+<section id="glosario-de-variables-climaticas-y-meteorologicas">
+<h3><strong>Glosario de Variables Climáticas y Meteorológicas</strong><a class="headerlink" href="#glosario-de-variables-climaticas-y-meteorologicas" title="Permalink to this heading">#</a></h3>
+<p>Este glosario describe las variables utilizadas en el análisis de microclimas y aprovechamiento de energía solar.</p>
+<section id="variables-atmosfericas-y-meteorologicas">
+<h4><strong>Variables Atmosféricas y Meteorológicas</strong><a class="headerlink" href="#variables-atmosfericas-y-meteorologicas" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>T2M:</strong> MERRA-2 Temperatura a 2 Metros (°C).</p>
+<ul>
+<li><p>Indica la temperatura del aire a una altura de 2 metros sobre la superficie.</p></li>
+</ul>
+</li>
+<li><p><strong>RH2M:</strong> MERRA-2 Humedad Relativa a 2 Metros (%).</p>
+<ul>
+<li><p>Mide la cantidad de humedad en el aire en relación con la máxima posible a esa temperatura.</p></li>
+</ul>
+</li>
+<li><p><strong>PRECTOTCORR:</strong> MERRA-2 Precipitación Corregida (mm/hora).</p>
+<ul>
+<li><p>Representa la tasa de precipitación (lluvia, nieve) ajustada según correcciones satelitales.</p></li>
+</ul>
+</li>
+<li><p><strong>WS10M:</strong> MERRA-2 Velocidad del Viento a 10 Metros (m/s).</p>
+<ul>
+<li><p>Velocidad del viento medida a una altura de 10 metros sobre la superficie.</p></li>
+</ul>
+</li>
+<li><p><strong>WD10M:</strong> MERRA-2 Dirección del Viento a 10 Metros (Grados).</p>
+<ul>
+<li><p>Indica la dirección desde la que sopla el viento, en grados (0° = Norte, 90° = Este, etc.).</p></li>
+</ul>
+</li>
+<li><p><strong>PS:</strong> MERRA-2 Presión Superficial (kPa).</p>
+<ul>
+<li><p>Mide la presión atmosférica en la superficie terrestre.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="variables-relacionadas-con-la-energia-solar">
+<h4><strong>Variables Relacionadas con la Energía Solar</strong><a class="headerlink" href="#variables-relacionadas-con-la-energia-solar" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>ALLSKY_SFC_UV_INDEX:</strong> CERES SYN1deg Índice UV en Superficie Bajo Cielo Total (W m⁻² × 40).</p>
+<ul>
+<li><p>Mide la intensidad de la radiación ultravioleta en la superficie terrestre.</p></li>
+</ul>
+</li>
+<li><p><strong>ALLSKY_SFC_SW_DIFF:</strong> CERES SYN1deg Irradiancia Difusa de Onda Corta en Superficie Bajo Cielo Total (Wh/m²).</p>
+<ul>
+<li><p>Cantidad de energía solar dispersada en la atmósfera que llega a la superficie terrestre.</p></li>
+</ul>
+</li>
+<li><p><strong>ALLSKY_SRF_ALB:</strong> CERES SYN1deg Albedo Superficial Bajo Cielo Total (adimensional).</p>
+<ul>
+<li><p>Fracción de la radiación solar reflejada por la superficie terrestre respecto a la radiación recibida.</p></li>
+</ul>
+</li>
+<li><p><strong>ALLSKY_KT:</strong> CERES SYN1deg Índice de Claridad de Insolación Bajo Cielo Total (adimensional).</p>
+<ul>
+<li><p>Relación entre la irradiancia solar real y la irradiancia solar máxima teórica en ausencia de atmósfera.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="variables-adicionales">
+<h4><strong>Variables Adicionales</strong><a class="headerlink" href="#variables-adicionales" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>T2MDEW:</strong> MERRA-2 Punto de Rocío/Escarcha a 2 Metros (°C).</p>
+<ul>
+<li><p>Temperatura a la cual el aire debe enfriarse para que el vapor de agua se condense en forma de rocío.</p></li>
+</ul>
+</li>
+<li><p><strong>T2MWET:</strong> MERRA-2 Temperatura de Bulbo Húmedo a 2 Metros (°C).</p>
+<ul>
+<li><p>Mide la temperatura mínima alcanzable por evaporación de agua en condiciones de enfriamiento adiabático.</p></li>
+</ul>
+</li>
+<li><p><strong>WS50M:</strong> MERRA-2 Velocidad del Viento a 50 Metros (m/s).</p>
+<ul>
+<li><p>Velocidad del viento medida a 50 metros de altura, relevante para el aprovechamiento eólico.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="variables-geograficas">
+<h4><strong>Variables Geográficas</strong><a class="headerlink" href="#variables-geograficas" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Loacality:</strong> Localidad donde se tomaron los datos.</p></li>
+<li><p><strong>NHBD:</strong> Neighborhood, barrio donde se registraron las mediciones.</p></li>
+</ul>
+<p>Este glosario permite una mejor comprensión de los datos utilizados en el análisis de microclimas y potencial de energía solar.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="objetivos">
+<h3><strong>Objetivos:</strong><a class="headerlink" href="#objetivos" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Impacto en la planificación urbana:</strong> La clasificación de microclimas permite identificar áreas con condiciones climáticas extremas (como islas de calor urbanas) y proponer medidas de mitigación, como la creación de espacios verdes o la implementación de techos reflectantes.</p></li>
+<li><p><strong>Optimización de energía renovable:</strong> La predicción de energía solar potencial es esencial para diseñar sistemas de energía solar más eficientes y reducir la dependencia de combustibles fósiles.</p></li>
+<li><p><strong>Contribución científica:</strong> Este proyecto utiliza datos de alta resolución de fuentes como MERRA-2 y CERES SYN1deg, lo que permite un análisis detallado y preciso de las variables meteorológicas. Los resultados están pensados para ser publicados y servir como base para futuras investigaciones.</p></li>
+</ul>
+</section>
+</section>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="right-next"
+       href="eda.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><strong>Exploración de Datos (EDA)</strong></p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#microclimas-urbanos-en-barranquilla-estudio-conjunto-sobre-la-variabilidad-meteorologica-por-localidad-y-la-prediccion-del-potencial-de-energia-solar"><strong>Microclimas urbanos en Barranquilla: Estudio conjunto sobre la variabilidad meteorológica por localidad y la predicción del potencial de energía solar</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduccion"><strong>Introducción:</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#glosario-de-variables-climaticas-y-meteorologicas"><strong>Glosario de Variables Climáticas y Meteorológicas</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-atmosfericas-y-meteorologicas"><strong>Variables Atmosféricas y Meteorológicas</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-relacionadas-con-la-energia-solar"><strong>Variables Relacionadas con la Energía Solar</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-adicionales"><strong>Variables Adicionales</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-geograficas"><strong>Variables Geográficas</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos"><strong>Objetivos:</strong></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Eliana Rodríguez - Jesús Arévalo
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
