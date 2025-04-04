@@ -65,7 +65,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/metodologia_modelos_regresion';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Modelos de clasificación" href="metodologia_modelos_clasificacion.html" />
+    <link rel="next" title="Evaluacion y analisis de modelos, casos porblema de regresión y clasificación" href="metodologia_modelos_clasificacion3.html" />
     <link rel="prev" title="Exploración de Datos (EDA)" href="eda.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -171,7 +171,8 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="eda.html">Exploración de Datos (EDA)</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Modelos de Regresión</a></li>
-<li class="toctree-l1"><a class="reference internal" href="metodologia_modelos_clasificacion.html">Modelos de Clasificación</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metodologia_modelos_clasificacion3.html"><strong>Evaluacion y analisis de modelos, casos porblema de regresión y clasificación</strong></a></li>
+
 </ul>
 
     </div>
@@ -665,7 +666,7 @@ document.write(`
 R2: 0.9999273186688901
 MSE: 1.2585006654533117e-07
 MAE: 8.691024951373174e-06
-Training Time (s): 13.58
+Training Time (s): 15.11
 </pre></div>
 </div>
 </div>
@@ -2666,16 +2667,16 @@ Aunque el rendimiento ya era extremadamente alto, el modelo optimizado logra una
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define a color palette for the models</span>
 <span class="n">model_colors</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;Linear&#39;</span><span class="p">:</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Ridge&#39;</span><span class="p">:</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Lasso&#39;</span><span class="p">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Ridge_Poly&#39;</span><span class="p">:</span> <span class="s1">&#39;purple&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Lasso_Poly&#39;</span><span class="p">:</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Linear_Poly&#39;</span><span class="p">:</span> <span class="s1">&#39;cyan&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;KNN&#39;</span><span class="p">:</span> <span class="s1">&#39;pink&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;KNN_Opt&#39;</span><span class="p">:</span> <span class="s1">&#39;yellow&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Random Forest&#39;</span><span class="p">:</span> <span class="s1">&#39;brown&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;XGBoost&#39;</span><span class="p">:</span> <span class="s1">&#39;gray&#39;</span>
+    <span class="s1">&#39;Linear&#39;</span><span class="p">:</span> <span class="s1">&#39;#1f77b4&#39;</span><span class="p">,</span>       <span class="c1">#  blue</span>
+    <span class="s1">&#39;Ridge&#39;</span><span class="p">:</span> <span class="s1">&#39;#2ca02c&#39;</span><span class="p">,</span>        <span class="c1">#  green</span>
+    <span class="s1">&#39;Lasso&#39;</span><span class="p">:</span> <span class="s1">&#39;#d62728&#39;</span><span class="p">,</span>        <span class="c1">#  red</span>
+    <span class="s1">&#39;Ridge_Poly&#39;</span><span class="p">:</span> <span class="s1">&#39;#9467bd&#39;</span><span class="p">,</span>   <span class="c1">#  purple</span>
+    <span class="s1">&#39;Lasso_Poly&#39;</span><span class="p">:</span> <span class="s1">&#39;#ff7f0e&#39;</span><span class="p">,</span>   <span class="c1">#  orange</span>
+    <span class="s1">&#39;Linear_Poly&#39;</span><span class="p">:</span> <span class="s1">&#39;#17becf&#39;</span><span class="p">,</span>  <span class="c1">#  cyan</span>
+    <span class="s1">&#39;KNN&#39;</span><span class="p">:</span> <span class="s1">&#39;#e377c2&#39;</span><span class="p">,</span>          <span class="c1">#  pink</span>
+    <span class="s1">&#39;KNN_Opt&#39;</span><span class="p">:</span> <span class="s1">&#39;#bcbd22&#39;</span><span class="p">,</span>      <span class="c1">#  yellow-green</span>
+    <span class="s1">&#39;Random Forest&#39;</span><span class="p">:</span> <span class="s1">&#39;#8c564b&#39;</span><span class="p">,</span><span class="c1">#  brown</span>
+    <span class="s1">&#39;XGBoost&#39;</span><span class="p">:</span> <span class="s1">&#39;#7f7f7f&#39;</span>       <span class="c1">#  gray</span>
 <span class="p">}</span>
 
 <span class="c1"># Convert the dictionary to a DataFrame</span>
@@ -2700,10 +2701,10 @@ Aunque el rendimiento ya era extremadamente alto, el modelo optimizado logra una
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/913854a3f3703074c0e2606c9835c70dbea73ad28b16e9a43cd89715fae5436a.png" src="../_images/913854a3f3703074c0e2606c9835c70dbea73ad28b16e9a43cd89715fae5436a.png" />
-<img alt="../_images/4ef2bbfa566f97815cd5941d4e18d88541ce80fe37f6601c5f5752b750fdb01a.png" src="../_images/4ef2bbfa566f97815cd5941d4e18d88541ce80fe37f6601c5f5752b750fdb01a.png" />
-<img alt="../_images/d6f95bc4cd9a599133e8833c0bd985835698031d5d291e61428cc6dd9e24babe.png" src="../_images/d6f95bc4cd9a599133e8833c0bd985835698031d5d291e61428cc6dd9e24babe.png" />
-<img alt="../_images/06cad9443fd3b09ca2bde2f2954bce5225d7d4248b6d4b6e34eb2028f9c28bbe.png" src="../_images/06cad9443fd3b09ca2bde2f2954bce5225d7d4248b6d4b6e34eb2028f9c28bbe.png" />
+<img alt="../_images/82818017613f7290eb2c98956dbd7369091e2b095fa0fa3b8f67c4ab1906df87.png" src="../_images/82818017613f7290eb2c98956dbd7369091e2b095fa0fa3b8f67c4ab1906df87.png" />
+<img alt="../_images/b9ee2eab3d8e1fec77dbe1a851c1f9fabef95bc1cfeeb402fb0dd4d4a2865643.png" src="../_images/b9ee2eab3d8e1fec77dbe1a851c1f9fabef95bc1cfeeb402fb0dd4d4a2865643.png" />
+<img alt="../_images/3788a1625c37eece6c8fd4acd58059a4acb6680e27c07e9ce7a6aa74ce1c09b2.png" src="../_images/3788a1625c37eece6c8fd4acd58059a4acb6680e27c07e9ce7a6aa74ce1c09b2.png" />
+<img alt="../_images/c2359d8385c5b65dc9c33f3f9f59ec4442765895a00453f36b59b96ea5bbdb8b.png" src="../_images/c2359d8385c5b65dc9c33f3f9f59ec4442765895a00453f36b59b96ea5bbdb8b.png" />
 </div>
 </div>
 </section>
@@ -2811,11 +2812,11 @@ Los modelos que más explican la variabilidad del <code class="docutils literal 
       </div>
     </a>
     <a class="right-next"
-       href="metodologia_modelos_clasificacion.html"
+       href="metodologia_modelos_clasificacion3.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><strong>Modelos de clasificación</strong></p>
+        <p class="prev-next-title"><strong>Evaluacion y analisis de modelos, casos porblema de regresión y clasificación</strong></p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
