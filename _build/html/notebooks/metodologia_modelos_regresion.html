@@ -1,0 +1,1960 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Modelos de Regresión &#8212; Analisis de localidades y aprovechamiento solar en Barranquilla: Análisis climático por localidad y estimación del potencial energético</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/metodologia_modelos_regresion';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Modelos de clasificación" href="metodologia_modelos_clasificacion.html" />
+    <link rel="prev" title="Exploración de Datos (EDA)" href="eda.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Analisis de localidades y aprovechamiento solar en Barranquilla: Análisis climático por localidad y estimación del potencial energético - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Analisis de localidades y aprovechamiento solar en Barranquilla: Análisis climático por localidad y estimación del potencial energético - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Contextualización:
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="eda.html">Exploración de Datos (EDA)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Modelos de Regresión</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metodologia_modelos_clasificacion.html">Modelos de Clasificación</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/YisusParker/jbook_ml20251" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/metodologia_modelos_regresion.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Modelos de Regresión</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#librerias"><strong>Librerias:</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-problema-evaluacion-del-potencial-de-energia-solar-en-barranquilla-analisis-de-irradiancia-y-variables-atmosfericas-para-la-generacion-sostenible"><strong>Caso problema: Evaluación del potencial de energía Solar en Barranquilla: Análisis de irradiancia y variables atmosféricas para la generación sostenible</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#contextualizacion"><strong>Contextualización</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modelos-para-el-caso-de-regresion-y-benchmark"><strong>Modelos para el caso de regresión y Benchmark</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ridge-regression"><strong>Ridge Regression</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evalucion"><strong>Evalución</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-del-modelo"><strong>Análisis del modelo</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretacion-de-resultados-numericos"><strong>Interpretación de Resultados Numéricos</strong></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-visual-actual-vs-predicted"><strong>Análisis Visual (Actual vs Predicted)</strong></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion"><strong>Conclusión</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lasso-regression"><strong>Lasso Regression</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><strong>Evalución</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><strong>Análisis del modelo</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id3"><strong>Interpretación de Resultados Numéricos</strong></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id4"><strong>Análisis Visual (Actual vs Predicted)</strong></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id5"><strong>Conclusión</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-forest"><strong>Random Forest</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6"><strong>Evalución</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7"><strong>Análisis del modelo</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id8"><strong>Interpretación de Resultados Numéricos</strong></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id9"><strong>Análisis Visual (Actual vs Predicted)</strong></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id10"><strong>Conclusión</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#xgboost"><strong>XGBoost</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11"><strong>Evalución</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id12"><strong>Análisis del modelo</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id13"><strong>Interpretación de Resultados Numéricos</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id14"><strong>Análisis Visual (Actual vs Predicted)</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id15"><strong>Conclusión</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resultados"><strong>Resultados</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#comparacion-grafica-de-los-modelos"><strong>Comparacion grafica de los modelos</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16"></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusiones-finales-del-analisis-de-modelos-de-regresion"><strong>Conclusiones Finales del Análisis de Modelos de Regresión</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17"></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18"></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparacion-segun-r2-bondad-de-ajuste">Comparación según R² (Bondad de ajuste)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19"></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20"></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparacion-segun-mse-error-cuadratico-medio">Comparación según MSE (Error Cuadrático Medio)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21"></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id22"></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparacion-segun-mae-error-absoluto-medio">Comparación según MAE (Error Absoluto Medio)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23"></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24"></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparacion-segun-tiempo-de-entrenamiento">Comparación según Tiempo de Entrenamiento</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25"></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26"></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#recomendacion-final"><strong>Recomendación Final</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id27"></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id28"><strong>Modelos para el caso de regresión y Benchmark</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ridge-and-lasso-regression"><strong>Ridge and Lasso Regression</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-de-lasso-y-ridge-mejorados"><strong>Análisis de Lasso y Ridge mejorados:</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#comparacion-de-modelos-lineales-antes-vs-despues-de-la-optimizacion"><strong>Comparación de Modelos Lineales: Antes vs Después de la Optimización</strong></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#ridge-regression-optimizado">1. Ridge Regression (Optimizado)</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#lasso-regression-optimizado">2. Lasso Regression (Optimizado)</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion-comparativa">Conclusión Comparativa</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion-final"><strong>Conclusion final</strong></a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="modelos-de-regresion">
+<h1><strong>Modelos de Regresión</strong><a class="headerlink" href="#modelos-de-regresion" title="Permalink to this heading">#</a></h1>
+<section id="librerias">
+<h2><strong>Librerias:</strong><a class="headerlink" href="#librerias" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Importing PolynomialFeatures for generating polynomial and interaction features</span>
+<span class="c1"># Importing RepeatedKFold for repeated cross-validation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">PolynomialFeatures</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">RepeatedKFold</span>
+
+<span class="c1"># Importing pandas for data manipulation and analysis</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># Importing matplotlib.pyplot for creating visualizations</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Importing time module for measuring execution time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="c1"># Importing train_test_split for splitting data into training and testing sets</span>
+<span class="c1"># Importing GridSearchCV for hyperparameter tuning using grid search</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span><span class="p">,</span> <span class="n">GridSearchCV</span>
+
+<span class="c1"># Importing Pipeline for creating machine learning pipelines</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pipeline</span>
+
+<span class="c1"># Importing StandardScaler for feature scaling</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+
+<span class="c1"># Importing Ridge and Lasso for linear regression with regularization</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">Ridge</span><span class="p">,</span> <span class="n">Lasso</span>
+
+<span class="c1"># Importing RandomForestRegressor for ensemble-based regression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomForestRegressor</span>
+
+<span class="c1"># Importing XGBRegressor from XGBoost for gradient boosting regression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xgboost</span><span class="w"> </span><span class="kn">import</span> <span class="n">XGBRegressor</span>
+
+<span class="c1"># Importing metrics for evaluating regression models</span>
+<span class="c1"># r2_score: Coefficient of determination</span>
+<span class="c1"># mean_squared_error: Mean squared error</span>
+<span class="c1"># mean_absolute_error: Mean absolute error</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">r2_score</span><span class="p">,</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">mean_absolute_error</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the dataset from the specified file path</span>
+<span class="c1"># Ensure the file path is correct and accessible</span>
+<span class="c1"># Use relative paths cautiously to avoid issues when sharing or moving the notebook</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;..\df_final.csv&#39;</span><span class="p">)</span>  <span class="c1"># Load the dataset</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="caso-problema-evaluacion-del-potencial-de-energia-solar-en-barranquilla-analisis-de-irradiancia-y-variables-atmosfericas-para-la-generacion-sostenible">
+<h2><strong>Caso problema: Evaluación del potencial de energía Solar en Barranquilla: Análisis de irradiancia y variables atmosféricas para la generación sostenible</strong><a class="headerlink" href="#caso-problema-evaluacion-del-potencial-de-energia-solar-en-barranquilla-analisis-de-irradiancia-y-variables-atmosfericas-para-la-generacion-sostenible" title="Permalink to this heading">#</a></h2>
+<section id="contextualizacion">
+<h3><strong>Contextualización</strong><a class="headerlink" href="#contextualizacion" title="Permalink to this heading">#</a></h3>
+<p>El creciente interés por las fuentes de energía limpias y renovables ha generado una demanda creciente en el uso de recursos solares, tanto en entornos urbanos como en zonas costeras. <strong>Barranquilla</strong>, ubicada geográficamente en el Caribe colombiano, se beneficia de una alta exposición a la radiación solar durante la mayor parte del año, lo que representa una gran oportunidad para el desarrollo de proyectos de generación fotovoltaica.</p>
+<p>Sin embargo, la capacidad de aprovechamiento de la energía solar no depende únicamente de la radiación solar incidente, sino también de varios <strong>factores atmosféricos</strong> como la temperatura, la humedad, la nubosidad, el viento y la presión, los cuales influyen directamente en la eficiencia de los sistemas solares.</p>
+<p>Este trabajo presenta un <strong>análisis cuantitativo del potencial de generación solar en Barranquilla</strong>, a partir del uso de datos históricos de irradiancia difusa, índice UV y variables meteorológicas recopiladas entre los años 2020 y 2025. El objetivo es construir un <strong>modelo de regresión</strong> que permita predecir un índice compuesto denominado <code class="docutils literal notranslate"><span class="pre">SolarIndex</span></code>, el cual representa una estimación del potencial energético solar considerando múltiples condiciones atmosféricas simultáneamente.</p>
+<p>La modelización de este índice permitirá identificar <strong>zonas y periodos del año con mayor rendimiento potencial</strong>, sirviendo como insumo para la planificación energética, la ubicación estratégica de sistemas fotovoltaicos y el diseño de <strong>políticas públicas sostenibles</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Definition of predictor variables and target variable for regression model ===</span>
+
+<span class="c1"># List of independent variables (features) used to estimate solar potential</span>
+<span class="n">feature_cols</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;T2M&#39;</span><span class="p">,</span>       <span class="c1"># Temperature at 2 meters</span>
+    <span class="s1">&#39;RH2M&#39;</span><span class="p">,</span>      <span class="c1"># Relative humidity at 2 meters</span>
+    <span class="s1">&#39;WS10M&#39;</span><span class="p">,</span>     <span class="c1"># Wind speed at 10 meters</span>
+    <span class="s1">&#39;WD10M&#39;</span><span class="p">,</span>     <span class="c1"># Wind direction at 10 meters</span>
+    <span class="s1">&#39;PS&#39;</span><span class="p">,</span>        <span class="c1"># Surface pressure</span>
+    <span class="s1">&#39;T2MDEW&#39;</span><span class="p">,</span>    <span class="c1"># Dew point temperature at 2 meters</span>
+    <span class="s1">&#39;T2MWET&#39;</span><span class="p">,</span>    <span class="c1"># Wet bulb temperature</span>
+    <span class="s1">&#39;WS50M&#39;</span>      <span class="c1"># Wind speed at 50 meters</span>
+<span class="p">]</span>
+
+<span class="c1"># Define predictor variables (X) and target variable (y)</span>
+<span class="c1"># - X: DataFrame containing the selected feature columns</span>
+<span class="c1"># - y: Series containing the target variable &#39;SolarIndex&#39;</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">feature_cols</span><span class="p">]</span>  <span class="c1"># Extract features from the dataset</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;SolarIndex&#39;</span><span class="p">]</span>  <span class="c1"># Extract the target variable</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="modelos-para-el-caso-de-regresion-y-benchmark">
+<h3><strong>Modelos para el caso de regresión y Benchmark</strong><a class="headerlink" href="#modelos-para-el-caso-de-regresion-y-benchmark" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Split the dataset into training and testing sets ===</span>
+<span class="c1"># - X_train, X_test: Predictor variables for training and testing</span>
+<span class="c1"># - y_train, y_test: Target variable for training and testing</span>
+<span class="c1"># - test_size=0.2: 20% of the data is allocated for testing</span>
+<span class="c1"># - random_state=42: Ensures reproducibility of the split</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Initialize a dictionary to store model results ===</span>
+<span class="c1"># This dictionary will hold performance metrics for each model</span>
+<span class="c1"># Metrics such as R², MSE, MAE, and training time will be stored for comparison</span>
+<span class="n">model_results</span> <span class="o">=</span> <span class="p">{}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="ridge-regression">
+<h3><strong>Ridge Regression</strong><a class="headerlink" href="#ridge-regression" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Ridge Regression Pipeline Configuration ===</span>
+
+<span class="c1"># Create a pipeline that includes:</span>
+<span class="c1"># - StandardScaler: Standardizes the predictor variables to have mean=0 and variance=1</span>
+<span class="c1"># - Ridge: Ridge regression model for regularized linear regression</span>
+<span class="n">ridge_pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+    <span class="p">(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span>  <span class="c1"># Step 1: Feature scaling for normalization</span>
+    <span class="p">(</span><span class="s1">&#39;model&#39;</span><span class="p">,</span> <span class="n">Ridge</span><span class="p">())</span>  <span class="c1"># Step 2: Ridge regression model</span>
+<span class="p">])</span>
+
+<span class="c1"># Define the hyperparameter grid for alpha (regularization strength)</span>
+<span class="n">ridge_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;model__alpha&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">]}</span>  <span class="c1"># Range of alpha values to test</span>
+
+<span class="c1"># Use GridSearchCV for hyperparameter tuning with 5-fold cross-validation</span>
+<span class="n">ridge_grid</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">ridge_pipe</span><span class="p">,</span> <span class="n">ridge_params</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>  <span class="c1"># Optimize alpha using cross-validation</span>
+
+<span class="c1"># === Model Training and Timing ===</span>
+
+<span class="c1"># Start the timer to measure training time</span>
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>  <span class="c1"># Record the start time</span>
+
+<span class="c1"># Train the Ridge regression model using the training data</span>
+<span class="n">ridge_grid</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>  <span class="c1"># Fit the model and perform hyperparameter search</span>
+
+<span class="c1"># Stop the timer after training is complete</span>
+<span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>  <span class="c1"># Record the end time</span>
+
+<span class="c1"># Predict the target variable for the test dataset</span>
+<span class="n">y_pred_ridge</span> <span class="o">=</span> <span class="n">ridge_grid</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>  <span class="c1"># Generate predictions on the test set</span>
+
+<span class="c1"># Calculate the total training time</span>
+<span class="n">ridge_training_time</span> <span class="o">=</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span>  <span class="c1"># Compute the elapsed training time in seconds</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="evalucion">
+<h4><strong>Evalución</strong><a class="headerlink" href="#evalucion" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Model Evaluation and Results Storage ===</span>
+
+<span class="c1"># Store key performance metrics for the Ridge model:</span>
+<span class="c1"># - &#39;Best Alpha&#39;: The best alpha value found during grid search</span>
+<span class="c1"># - &#39;R2&#39;: Coefficient of determination, measures the goodness of fit of the model</span>
+<span class="c1"># - &#39;MSE&#39;: Mean Squared Error, measures the average squared difference between actual and predicted values</span>
+<span class="c1"># - &#39;MAE&#39;: Mean Absolute Error, measures the average absolute difference between actual and predicted values</span>
+<span class="c1"># - &#39;Training Time (s)&#39;: Total training time in seconds, rounded to 2 decimal places</span>
+<span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Ridge&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Best Alpha&#39;</span><span class="p">:</span> <span class="n">ridge_grid</span><span class="o">.</span><span class="n">best_params_</span><span class="p">[</span><span class="s1">&#39;model__alpha&#39;</span><span class="p">],</span>  <span class="c1"># Best hyperparameter alpha</span>
+    <span class="s1">&#39;R2&#39;</span><span class="p">:</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_ridge</span><span class="p">),</span>  <span class="c1"># Coefficient of determination</span>
+    <span class="s1">&#39;MSE&#39;</span><span class="p">:</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_ridge</span><span class="p">),</span>  <span class="c1"># Mean Squared Error</span>
+    <span class="s1">&#39;MAE&#39;</span><span class="p">:</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_ridge</span><span class="p">),</span>  <span class="c1"># Mean Absolute Error</span>
+    <span class="s1">&#39;Training Time (s)&#39;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">ridge_training_time</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># Training time rounded to 2 decimals</span>
+<span class="p">}</span>
+
+<span class="c1"># Print the Ridge model results in a clear and structured format</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ridge Regression Results:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Best Alpha: </span><span class="si">{</span><span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Ridge&#39;</span><span class="p">][</span><span class="s1">&#39;Best Alpha&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Best alpha value</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;R²: </span><span class="si">{</span><span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Ridge&#39;</span><span class="p">][</span><span class="s1">&#39;R2&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Coefficient of determination</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MSE: </span><span class="si">{</span><span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Ridge&#39;</span><span class="p">][</span><span class="s1">&#39;MSE&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Mean Squared Error</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MAE: </span><span class="si">{</span><span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Ridge&#39;</span><span class="p">][</span><span class="s1">&#39;MAE&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Mean Absolute Error</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Training Time: </span><span class="si">{</span><span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Ridge&#39;</span><span class="p">][</span><span class="s1">&#39;Training Time (s)&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>  <span class="c1"># Training time</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ridge Regression Results:
+Best Alpha: 10
+R²: 0.2555147596091165
+MSE: 0.0012891001803958992
+MAE: 0.022108922788286807
+Training Time: 14.42 seconds
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Predicted values for the training set using the Ridge model ===</span>
+<span class="c1"># Use the trained Ridge model (ridge_grid) to predict the target variable for the training set</span>
+<span class="n">y_train_pred_ridge</span> <span class="o">=</span> <span class="n">ridge_grid</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+
+<span class="c1"># === Plotting actual vs predicted values for the training set ===</span>
+<span class="c1"># Create a scatter plot to visualize the relationship between actual and predicted values</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># Set the figure size for better readability</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred_ridge</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Ridge Predictions&#39;</span>
+<span class="p">)</span>  <span class="c1"># Scatter plot of actual vs predicted values</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">y_train</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_train</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span>
+    <span class="p">[</span><span class="n">y_train</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_train</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span>
+    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
+    <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Ideal Fit&#39;</span><span class="p">,</span>
+<span class="p">)</span>  <span class="c1"># Plot the ideal fit line (y = x) for reference</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Actual vs Predicted (Training Set)&#39;</span><span class="p">)</span>  <span class="c1"># Add a title to the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Actual Values (y_train)&#39;</span><span class="p">)</span>  <span class="c1"># Label for the x-axis</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Predicted Values (y_train_pred)&#39;</span><span class="p">)</span>  <span class="c1"># Label for the y-axis</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>  <span class="c1"># Add a legend to distinguish the scatter points and the ideal fit line</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>  <span class="c1"># Add a grid with light transparency for better visualization</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># Display the plot</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/fef9003f8d68bd25090bbb938837010bdd14f1c2188f101f810af38ee85fc2f8.png" src="../_images/fef9003f8d68bd25090bbb938837010bdd14f1c2188f101f810af38ee85fc2f8.png" />
+</div>
+</div>
+</section>
+<section id="analisis-del-modelo">
+<h4><strong>Análisis del modelo</strong><a class="headerlink" href="#analisis-del-modelo" title="Permalink to this heading">#</a></h4>
+<p>El modelo de regresión Ridge fue ajustado utilizando una búsqueda en grilla para encontrar el valor óptimo del hiperparámetro <code class="docutils literal notranslate"><span class="pre">alpha</span></code>. En este caso, el mejor valor fue:</p>
+<ul class="simple">
+<li><p><strong>Best Alpha:</strong> 10</p></li>
+<li><p><strong>R²:</strong> 0.2555</p></li>
+<li><p><strong>MSE:</strong> 0.00129</p></li>
+<li><p><strong>MAE:</strong> 0.0221</p></li>
+<li><p><strong>Tiempo de entrenamiento:</strong> 5.76 segundos</p></li>
+</ul>
+<section id="interpretacion-de-resultados-numericos">
+<h5><strong>Interpretación de Resultados Numéricos</strong><a class="headerlink" href="#interpretacion-de-resultados-numericos" title="Permalink to this heading">#</a></h5>
+<ul class="simple">
+<li><p><strong>R² (0.255)</strong> indica que el modelo explica aproximadamente el <strong>25.5% de la variabilidad</strong> del <code class="docutils literal notranslate"><span class="pre">SolarIndex</span></code> en los datos de prueba. Aunque esto no es muy alto, sí sugiere que el modelo ha logrado capturar parte de la relación entre las variables independientes y la variable objetivo.</p></li>
+<li><p><strong>MSE (0.00129)</strong> y <strong>MAE (0.0221)</strong> son relativamente bajos, lo que indica que los errores absolutos y cuadrados promedio en las predicciones son pequeños. Sin embargo, el bajo R² sugiere que el modelo <strong>puede estar limitado en su capacidad explicativa</strong>, aunque haga buenas predicciones cerca del valor promedio.</p></li>
+<li><p><strong>Tiempo de entrenamiento</strong> eficiente: Ridge es un modelo rápido y estable, ideal como línea base.</p></li>
+</ul>
+</section>
+<section id="analisis-visual-actual-vs-predicted">
+<h5><strong>Análisis Visual (Actual vs Predicted)</strong><a class="headerlink" href="#analisis-visual-actual-vs-predicted" title="Permalink to this heading">#</a></h5>
+<p>La gráfica muestra una nube de puntos azules (predicciones vs valores reales) concentrados cerca del eje horizontal, muy por debajo de la línea de ajuste ideal (roja discontinua). Esto indica que:</p>
+<ul class="simple">
+<li><p>El modelo <strong>tiende a subestimar</strong> las predicciones para valores más altos del <code class="docutils literal notranslate"><span class="pre">SolarIndex</span></code>.</p></li>
+<li><p>La dispersión de los puntos indica que <strong>el modelo no se ajusta bien a la varianza real del conjunto de entrenamiento</strong>, especialmente en los extremos.</p></li>
+</ul>
+</section>
+<section id="conclusion">
+<h5><strong>Conclusión</strong><a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h5>
+<p>Aunque Ridge ofrece <strong>estabilidad y baja varianza</strong>, su capacidad para modelar relaciones no lineales es limitada. La baja R² combinada con predicciones agrupadas sugiere que:</p>
+<ul class="simple">
+<li><p>El problema <strong>podría requerir un modelo más complejo o no lineal</strong>, como Random Forest o XGBoost.</p></li>
+<li><p>También sería útil realizar una <strong>transformación</strong> de la variable objetivo o incluir <strong>nuevas variables</strong> si hay más disponibles.</p></li>
+</ul>
+<hr class="docutils" />
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="lasso-regression">
+<h3><strong>Lasso Regression</strong><a class="headerlink" href="#lasso-regression" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Configuration of the pipeline for Lasso Regression ===</span>
+
+<span class="c1"># Create a pipeline that includes:</span>
+<span class="c1"># - StandardScaler: Standardizes the predictor variables to have mean=0 and variance=1</span>
+<span class="c1"># - Lasso: Lasso regression model for regularized linear regression</span>
+<span class="n">lasso_pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+    <span class="p">(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span>  <span class="c1"># Step 1: Feature scaling for normalization</span>
+    <span class="p">(</span><span class="s1">&#39;model&#39;</span><span class="p">,</span> <span class="n">Lasso</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">))</span>  <span class="c1"># Step 2: Lasso regression model with increased max iterations</span>
+<span class="p">])</span>
+
+<span class="c1"># Define the hyperparameter grid for alpha (regularization strength)</span>
+<span class="n">lasso_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;model__alpha&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">]}</span>  <span class="c1"># Range of alpha values to test</span>
+
+<span class="c1"># Use GridSearchCV for hyperparameter tuning with 5-fold cross-validation</span>
+<span class="n">lasso_grid</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">lasso_pipe</span><span class="p">,</span> <span class="n">lasso_params</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>  <span class="c1"># Optimize alpha using cross-validation</span>
+
+<span class="c1"># === Model Training and Timing ===</span>
+
+<span class="c1"># Start the timer to measure training time</span>
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>  <span class="c1"># Record the start time</span>
+
+<span class="c1"># Train the Lasso regression model using the training data</span>
+<span class="n">lasso_grid</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>  <span class="c1"># Fit the model and perform hyperparameter search</span>
+
+<span class="c1"># Stop the timer after training is complete</span>
+<span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>  <span class="c1"># Record the end time</span>
+
+<span class="c1"># Predict the target variable for the test dataset</span>
+<span class="n">y_pred_lasso</span> <span class="o">=</span> <span class="n">lasso_grid</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>  <span class="c1"># Generate predictions on the test set</span>
+
+<span class="c1"># Calculate the total training time</span>
+<span class="n">lasso_training_time</span> <span class="o">=</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span>  <span class="c1"># Compute the elapsed training time in seconds</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id1">
+<h4><strong>Evalución</strong><a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Model Evaluation and Results Storage ===</span>
+
+<span class="c1"># Store key performance metrics for the Lasso model:</span>
+<span class="c1"># - &#39;Best Alpha&#39;: The best alpha value found during grid search</span>
+<span class="c1"># - &#39;R2&#39;: Coefficient of determination, measures the goodness of fit of the model</span>
+<span class="c1"># - &#39;MSE&#39;: Mean Squared Error, measures the average squared difference between actual and predicted values</span>
+<span class="c1"># - &#39;MAE&#39;: Mean Absolute Error, measures the average absolute difference between actual and predicted values</span>
+<span class="c1"># - &#39;Training Time (s)&#39;: Total training time in seconds, rounded to 2 decimal places</span>
+<span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Lasso&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Best Alpha&#39;</span><span class="p">:</span> <span class="n">lasso_grid</span><span class="o">.</span><span class="n">best_params_</span><span class="p">[</span><span class="s1">&#39;model__alpha&#39;</span><span class="p">],</span>  <span class="c1"># Best hyperparameter alpha</span>
+    <span class="s1">&#39;R2&#39;</span><span class="p">:</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_lasso</span><span class="p">),</span>  <span class="c1"># Coefficient of determination</span>
+    <span class="s1">&#39;MSE&#39;</span><span class="p">:</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_lasso</span><span class="p">),</span>  <span class="c1"># Mean Squared Error</span>
+    <span class="s1">&#39;MAE&#39;</span><span class="p">:</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_lasso</span><span class="p">),</span>  <span class="c1"># Mean Absolute Error</span>
+    <span class="s1">&#39;Training Time (s)&#39;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">lasso_training_time</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># Training time rounded to 2 decimals</span>
+<span class="p">}</span>
+
+<span class="c1"># Print the Lasso model results in a clear and structured format</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Lasso Regression Results:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Best Alpha: </span><span class="si">{</span><span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Lasso&#39;</span><span class="p">][</span><span class="s1">&#39;Best Alpha&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Best alpha value</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;R²: </span><span class="si">{</span><span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Lasso&#39;</span><span class="p">][</span><span class="s1">&#39;R2&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Coefficient of determination</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MSE: </span><span class="si">{</span><span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Lasso&#39;</span><span class="p">][</span><span class="s1">&#39;MSE&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Mean Squared Error</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MAE: </span><span class="si">{</span><span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Lasso&#39;</span><span class="p">][</span><span class="s1">&#39;MAE&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Mean Absolute Error</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Training Time: </span><span class="si">{</span><span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Lasso&#39;</span><span class="p">][</span><span class="s1">&#39;Training Time (s)&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>  <span class="c1"># Training time</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Lasso Regression Results:
+Best Alpha: 0.01
+R²: 0.09657400853221798
+MSE: 0.0015643112118166353
+MAE: 0.019309069278737382
+Training Time: 13.29 seconds
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Prediction on the training set using the Lasso model ===</span>
+
+<span class="c1"># Use the trained Lasso model (lasso_grid) to predict the target variable for the training set</span>
+<span class="n">y_train_pred_lasso</span> <span class="o">=</span> <span class="n">lasso_grid</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+
+<span class="c1"># === Visualization: Actual vs Predicted Values (Training Set) ===</span>
+
+<span class="c1"># Create a scatter plot to compare actual and predicted values</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># Set the figure size for better readability</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred_lasso</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Lasso Predictions&#39;</span>
+<span class="p">)</span>  <span class="c1"># Scatter plot of actual vs predicted values</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">y_train</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_train</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span>
+    <span class="p">[</span><span class="n">y_train</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_train</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span>
+    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
+    <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Ideal Fit&#39;</span><span class="p">,</span>
+<span class="p">)</span>  <span class="c1"># Plot the ideal fit line (y = x) for reference</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Actual vs Predicted (Training Set)&#39;</span><span class="p">)</span>  <span class="c1"># Add a title to the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Actual Values (y_train)&#39;</span><span class="p">)</span>  <span class="c1"># Label for the x-axis</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Predicted Values (y_train_pred)&#39;</span><span class="p">)</span>  <span class="c1"># Label for the y-axis</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>  <span class="c1"># Add a legend to distinguish the scatter points and the ideal fit line</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>  <span class="c1"># Add a grid with light transparency for better visualization</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># Display the plot</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/85d131a5c03bd7160c4675c19e83bc503530e4da8a479a7ae7e44b5258bac374.png" src="../_images/85d131a5c03bd7160c4675c19e83bc503530e4da8a479a7ae7e44b5258bac374.png" />
+</div>
+</div>
+</section>
+<section id="id2">
+<h4><strong>Análisis del modelo</strong><a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h4>
+<p>El modelo de regresión Lasso fue ajustado utilizando validación cruzada para encontrar el valor óptimo de <code class="docutils literal notranslate"><span class="pre">alpha</span></code>, resultando en:</p>
+<ul class="simple">
+<li><p><strong>Best Alpha:</strong> 0.01</p></li>
+<li><p><strong>R²:</strong> 0.0966</p></li>
+<li><p><strong>MSE:</strong> 0.00156</p></li>
+<li><p><strong>MAE:</strong> 0.0193</p></li>
+<li><p><strong>Tiempo de entrenamiento:</strong> 5.15 segundos</p></li>
+</ul>
+<section id="id3">
+<h5><strong>Interpretación de Resultados Numéricos</strong><a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h5>
+<ul class="simple">
+<li><p>El valor de <strong>R² (0.0966)</strong> indica que el modelo sólo explica el <strong>9.6% de la variabilidad</strong> del <code class="docutils literal notranslate"><span class="pre">SolarIndex</span></code>, lo cual es <strong>bajo</strong> y muestra que el ajuste general es pobre.</p></li>
+<li><p>Aunque <strong>MAE (0.0193)</strong> y <strong>MSE (0.00156)</strong> son relativamente bajos, estos errores pequeños se deben en parte a que el modelo está prediciendo valores <strong>cercanos al promedio</strong>, sin capturar la variabilidad real de los datos.</p></li>
+<li><p><strong>Tiempo de entrenamiento</strong> corto, lo que confirma que Lasso es un modelo eficiente computacionalmente.</p></li>
+</ul>
+</section>
+<section id="id4">
+<h5><strong>Análisis Visual (Actual vs Predicted)</strong><a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h5>
+<p>En la gráfica, las predicciones del modelo (puntos verdes) están fuertemente agrupadas en la parte inferior del gráfico, muy por debajo de la línea de ajuste ideal (roja punteada), lo que indica que:</p>
+<ul class="simple">
+<li><p>El modelo <strong>subestima sistemáticamente</strong> los valores reales.</p></li>
+<li><p>Tiene una <strong>capacidad explicativa limitada</strong>, especialmente para valores altos del <code class="docutils literal notranslate"><span class="pre">SolarIndex</span></code>.</p></li>
+</ul>
+</section>
+<section id="id5">
+<h5><strong>Conclusión</strong><a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h5>
+<p>Lasso Regression, al incluir una penalización que puede reducir algunos coeficientes a cero, <strong>puede haber eliminado variables útiles</strong> para la predicción del <code class="docutils literal notranslate"><span class="pre">SolarIndex</span></code>. Esto puede explicar su bajo rendimiento en este caso específico.</p>
+<ul class="simple">
+<li><p>Puede ser útil para <strong>selección de variables</strong>, pero <strong>no se recomienda como modelo final</strong> para este problema de regresión si el objetivo es precisión predictiva.</p></li>
+<li><p>Se sugiere continuar con modelos no lineales como <strong>Random Forest</strong> o <strong>XGBoost</strong>, que son más capaces de capturar interacciones complejas.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="random-forest">
+<h3><strong>Random Forest</strong><a class="headerlink" href="#random-forest" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Optimal Number of Trees (n_estimators) Search ===</span>
+
+<span class="c1"># Base Random Forest model without hyperparameter tuning</span>
+<span class="n">rf_model</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Define the range of values for the number of trees to test</span>
+<span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">]</span>  <span class="c1"># Different values for n_estimators</span>
+<span class="p">}</span>
+
+<span class="c1"># Configure GridSearchCV for hyperparameter tuning</span>
+<span class="c1"># - cv=5: 5-fold cross-validation</span>
+<span class="c1"># - scoring=&#39;r2&#39;: Use R² as the evaluation metric</span>
+<span class="c1"># - n_jobs=-1: Use all available CPU cores for parallel processing</span>
+<span class="n">grid_rf</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">rf_model</span><span class="p">,</span> <span class="n">param_grid</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;r2&#39;</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Fit the model to the training data and perform hyperparameter search</span>
+<span class="n">grid_rf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Print the best number of trees (n_estimators) and the corresponding R² score</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best number of trees:&quot;</span><span class="p">,</span> <span class="n">grid_rf</span><span class="o">.</span><span class="n">best_params_</span><span class="p">[</span><span class="s1">&#39;n_estimators&#39;</span><span class="p">])</span>  <span class="c1"># Optimal n_estimators</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best R² from cross-validation:&quot;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">grid_rf</span><span class="o">.</span><span class="n">best_score_</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>  <span class="c1"># Best R² score</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Training the Random Forest model with the optimal number of trees ===</span>
+
+<span class="c1"># Retrieve the best number of trees (n_estimators) identified by GridSearchCV</span>
+<span class="n">best_n_estimators</span> <span class="o">=</span> <span class="n">grid_rf</span><span class="o">.</span><span class="n">best_params_</span><span class="p">[</span><span class="s1">&#39;n_estimators&#39;</span><span class="p">]</span>
+
+<span class="c1"># Create the final Random Forest model using the optimal number of trees</span>
+<span class="n">rf_model</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="n">best_n_estimators</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Start the timer to measure training time</span>
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+<span class="c1"># Train the Random Forest model using the training dataset</span>
+<span class="n">rf_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Stop the timer after training is complete</span>
+<span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+<span class="c1"># Predict the target variable for the test dataset</span>
+<span class="n">y_pred_rf</span> <span class="o">=</span> <span class="n">rf_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># Calculate the total training time in seconds</span>
+<span class="n">rf_training_time</span> <span class="o">=</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id6">
+<h4><strong>Evalución</strong><a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Model Evaluation and Results Storage ===</span>
+
+<span class="c1"># Store key performance metrics for the Random Forest model:</span>
+<span class="c1"># - &#39;R2&#39;: Coefficient of determination, measures the goodness of fit of the model</span>
+<span class="c1"># - &#39;MSE&#39;: Mean Squared Error, measures the average squared difference between actual and predicted values</span>
+<span class="c1"># - &#39;MAE&#39;: Mean Absolute Error, measures the average absolute difference between actual and predicted values</span>
+<span class="c1"># - &#39;Training Time (s)&#39;: Total training time in seconds, rounded to 2 decimal places</span>
+<span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Random Forest&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;R2&#39;</span><span class="p">:</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">),</span>  <span class="c1"># Calculate R² score for the test set</span>
+    <span class="s1">&#39;MSE&#39;</span><span class="p">:</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">),</span>  <span class="c1"># Calculate Mean Squared Error</span>
+    <span class="s1">&#39;MAE&#39;</span><span class="p">:</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">),</span>  <span class="c1"># Calculate Mean Absolute Error</span>
+    <span class="s1">&#39;Training Time (s)&#39;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">rf_training_time</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># Record training time rounded to 2 decimals</span>
+<span class="p">}</span>
+
+<span class="c1"># Print the Random Forest model results in a clear and structured format</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Random Forest Regression Results:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;R²: </span><span class="si">{</span><span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Random Forest&#39;</span><span class="p">][</span><span class="s1">&#39;R2&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Display R² score</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MSE: </span><span class="si">{</span><span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Random Forest&#39;</span><span class="p">][</span><span class="s1">&#39;MSE&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Display Mean Squared Error</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MAE: </span><span class="si">{</span><span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Random Forest&#39;</span><span class="p">][</span><span class="s1">&#39;MAE&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Display Mean Absolute Error</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Training Time: </span><span class="si">{</span><span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Random Forest&#39;</span><span class="p">][</span><span class="s1">&#39;Training Time (s)&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>  <span class="c1"># Display training time</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Random Forest Regression Results:
+R²: 0.9999988603886977
+MSE: 1.973273687340004e-09
+MAE: 7.981250684030998e-06
+Training Time: 1910.67 seconds
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Prediction on the training set using the Random Forest model ===</span>
+
+<span class="c1"># Use the trained Random Forest model to predict the target variable for the training set</span>
+<span class="n">y_train_pred_rf</span> <span class="o">=</span> <span class="n">rf_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+
+<span class="c1"># === Visualization: Actual vs Predicted Values (Training Set) ===</span>
+
+<span class="c1"># Create a scatter plot to compare actual and predicted values</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># Set the figure size for better readability</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred_rf</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Random Forest Predictions&#39;</span>
+<span class="p">)</span>  <span class="c1"># Scatter plot of actual vs predicted values</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">y_train</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_train</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span>
+    <span class="p">[</span><span class="n">y_train</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_train</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span>
+    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
+    <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Ideal Fit&#39;</span><span class="p">,</span>
+<span class="p">)</span>  <span class="c1"># Plot the ideal fit line (y = x) for reference</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Actual vs Predicted (Training Set)&#39;</span><span class="p">)</span>  <span class="c1"># Add a title to the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Actual Values (y_train)&#39;</span><span class="p">)</span>  <span class="c1"># Label for the x-axis</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Predicted Values (y_train_pred)&#39;</span><span class="p">)</span>  <span class="c1"># Label for the y-axis</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>  <span class="c1"># Add a legend to distinguish the scatter points and the ideal fit line</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>  <span class="c1"># Add a grid with light transparency for better visualization</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># Display the plot</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/91c08eb7d2be6884e24efcaecd82add036998b0488b07bee56ed95d95af9d5a1.png" src="../_images/91c08eb7d2be6884e24efcaecd82add036998b0488b07bee56ed95d95af9d5a1.png" />
+</div>
+</div>
+</section>
+<section id="id7">
+<h4><strong>Análisis del modelo</strong><a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h4>
+<p>El modelo de Random Forest fue optimizado utilizando una búsqueda en grilla (<code class="docutils literal notranslate"><span class="pre">GridSearchCV</span></code>), obteniendo el mejor número de árboles (<code class="docutils literal notranslate"><span class="pre">n_estimators</span></code>) para maximizar el rendimiento:</p>
+<ul class="simple">
+<li><p><strong>Mejor número de árboles:</strong> 300</p></li>
+<li><p><strong>Mejor R² en validación cruzada:</strong> 1.0</p></li>
+<li><p><strong>R² en conjunto de prueba:</strong> 0.99999886</p></li>
+<li><p><strong>MSE:</strong> 1.97 × 10⁻⁹</p></li>
+<li><p><strong>MAE:</strong> 7.98 × 10⁻⁶</p></li>
+<li><p><strong>Tiempo de entrenamiento:</strong> 1910.67 segundos (~31.8 minutos)</p></li>
+</ul>
+<section id="id8">
+<h5><strong>Interpretación de Resultados Numéricos</strong><a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h5>
+<ul class="simple">
+<li><p><strong>R² (≈1.0)</strong> indica que el modelo es <strong>extremadamente preciso</strong>, explicando prácticamente el 100% de la variabilidad del <code class="docutils literal notranslate"><span class="pre">SolarIndex</span></code>.</p></li>
+<li><p>Tanto el <strong>MSE</strong> como el <strong>MAE</strong> son <strong>cercanos a cero</strong>, lo que refleja que las diferencias entre los valores reales y predichos son mínimas.</p></li>
+<li><p><strong>Tiempo de entrenamiento</strong> considerablemente más largo que en modelos lineales, lo cual es esperado en modelos de ensamble como Random Forest con muchos árboles.</p></li>
+</ul>
+</section>
+<section id="id9">
+<h5><strong>Análisis Visual (Actual vs Predicted)</strong><a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h5>
+<p>La gráfica muestra que las predicciones (círculos naranjas) <strong>se superponen perfectamente sobre la línea roja punteada de ajuste ideal</strong>, lo cual confirma visualmente la alta precisión del modelo.</p>
+<p>No hay dispersión aparente ni errores sistemáticos visibles: el modelo <strong>predice casi perfectamente</strong> los valores del conjunto de entrenamiento.</p>
+</section>
+<section id="id10">
+<h5><strong>Conclusión</strong><a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h5>
+<p>Random Forest es <strong>el modelo con mejor rendimiento hasta el momento</strong>, pero debe evaluarse con cuidado:</p>
+<ul class="simple">
+<li><p>Este nivel de ajuste puede ser un indicio de <strong>sobreajuste (overfitting)</strong> si la precisión fuera muy diferente en el conjunto de prueba.</p></li>
+<li><p>Se recomienda verificar el rendimiento en validación cruzada y también hacer pruebas con datos nuevos o externos si es posible.</p></li>
+</ul>
+<p>Este modelo es una <strong>excelente elección para la predicción de <code class="docutils literal notranslate"><span class="pre">SolarIndex</span></code></strong>, especialmente si se prioriza precisión por encima de tiempo de cómputo.</p>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="xgboost">
+<h3><strong>XGBoost</strong><a class="headerlink" href="#xgboost" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === XGBoost Model Hyperparameter Tuning and Training ===</span>
+
+<span class="c1"># Initialize the XGBoost model with a fixed random state for reproducibility</span>
+<span class="c1"># and verbosity set to 0 to suppress unnecessary output</span>
+<span class="n">xgb_model</span> <span class="o">=</span> <span class="n">XGBRegressor</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">verbosity</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Define the hyperparameter grid for GridSearchCV</span>
+<span class="c1"># - n_estimators: Number of trees in the ensemble</span>
+<span class="c1"># - learning_rate: Step size shrinkage used in updates to prevent overfitting</span>
+<span class="c1"># - max_depth: Maximum depth of a tree to control model complexity</span>
+<span class="n">xgb_param_grid</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">],</span>
+    <span class="s1">&#39;learning_rate&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+    <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1"># Configure GridSearchCV for hyperparameter tuning</span>
+<span class="c1"># - cv=5: Perform 5-fold cross-validation</span>
+<span class="c1"># - scoring=&#39;r2&#39;: Use R² as the evaluation metric</span>
+<span class="c1"># - n_jobs=-1: Utilize all available CPU cores for parallel processing</span>
+<span class="n">xgb_grid</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">xgb_model</span><span class="p">,</span> <span class="n">xgb_param_grid</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;r2&#39;</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Fit the model to the training data and perform hyperparameter search</span>
+<span class="n">xgb_grid</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Print the best hyperparameters found during the grid search</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best hyperparameters:&quot;</span><span class="p">,</span> <span class="n">xgb_grid</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
+
+<span class="c1"># Print the best R² score obtained during cross-validation</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best R² from cross-validation:&quot;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">xgb_grid</span><span class="o">.</span><span class="n">best_score_</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Best hyperparameters: {&#39;learning_rate&#39;: 0.1, &#39;max_depth&#39;: 7, &#39;n_estimators&#39;: 300}
+Best R² from cross-validation: 0.8538
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Configuration and Training of the XGBoost Model ===</span>
+
+<span class="c1"># Create the XGBoost model with 100 trees and a fixed random state for reproducibility</span>
+<span class="c1"># - n_estimators=100: Specifies the number of trees in the ensemble</span>
+<span class="c1"># - random_state=42: Ensures consistent results across runs</span>
+<span class="c1"># - verbosity=0: Suppresses unnecessary output during training</span>
+<span class="n">xgb_model</span> <span class="o">=</span> <span class="n">XGBRegressor</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">verbosity</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Start the timer to measure training time</span>
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>  <span class="c1"># Record the start time</span>
+
+<span class="c1"># Train the XGBoost model using the training dataset</span>
+<span class="c1"># - X_train: Predictor variables for training</span>
+<span class="c1"># - y_train: Target variable for training</span>
+<span class="n">xgb_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Stop the timer after training is complete</span>
+<span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>  <span class="c1"># Record the end time</span>
+
+<span class="c1"># Predict the target variable for the test dataset</span>
+<span class="c1"># - X_test: Predictor variables for testing</span>
+<span class="c1"># - y_pred_xgb: Predicted values for the test set</span>
+<span class="n">y_pred_xgb</span> <span class="o">=</span> <span class="n">xgb_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># Calculate the total training time in seconds</span>
+<span class="n">xgb_training_time</span> <span class="o">=</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span>  <span class="c1"># Compute the elapsed training time</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id11">
+<h4><strong>Evalución</strong><a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Model Evaluation and Results Storage ===</span>
+
+<span class="c1"># Store the evaluation metrics for the XGBoost model in the `model_results` dictionary</span>
+<span class="c1"># - &#39;R2&#39;: Coefficient of determination, measures the goodness of fit of the model</span>
+<span class="c1"># - &#39;MSE&#39;: Mean Squared Error, measures the average squared difference between actual and predicted values</span>
+<span class="c1"># - &#39;MAE&#39;: Mean Absolute Error, measures the average absolute difference between actual and predicted values</span>
+<span class="c1"># - &#39;Training Time (s)&#39;: Total training time in seconds, rounded to 2 decimal places</span>
+<span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;XGBoost&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;R2&#39;</span><span class="p">:</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_xgb</span><span class="p">),</span>  <span class="c1"># Calculate R² score for the test set</span>
+    <span class="s1">&#39;MSE&#39;</span><span class="p">:</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_xgb</span><span class="p">),</span>  <span class="c1"># Calculate Mean Squared Error</span>
+    <span class="s1">&#39;MAE&#39;</span><span class="p">:</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_xgb</span><span class="p">),</span>  <span class="c1"># Calculate Mean Absolute Error</span>
+    <span class="s1">&#39;Training Time (s)&#39;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">xgb_training_time</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># Record training time rounded to 2 decimals</span>
+<span class="p">}</span>
+
+<span class="c1"># Print the evaluation results for the XGBoost model in a structured format</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;XGBoost Regression Results:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;R²: </span><span class="si">{</span><span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;XGBoost&#39;</span><span class="p">][</span><span class="s1">&#39;R2&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Display R² score</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MSE: </span><span class="si">{</span><span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;XGBoost&#39;</span><span class="p">][</span><span class="s1">&#39;MSE&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Display Mean Squared Error</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MAE: </span><span class="si">{</span><span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;XGBoost&#39;</span><span class="p">][</span><span class="s1">&#39;MAE&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Display Mean Absolute Error</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Training Time: </span><span class="si">{</span><span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;XGBoost&#39;</span><span class="p">][</span><span class="s1">&#39;Training Time (s)&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>  <span class="c1"># Display training time</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>XGBoost Regression Results:
+R²: 0.8029276172220619
+MSE: 0.00034123718027869273
+MAE: 0.005863526020261907
+Training Time: 2.41 seconds
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Prediction on the training set using the XGBoost model ===</span>
+
+<span class="c1"># Use the trained XGBoost model to predict the target variable for the training set</span>
+<span class="n">y_train_pred_xgb</span> <span class="o">=</span> <span class="n">xgb_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+
+<span class="c1"># === Visualization: Actual vs Predicted Values (Training Set) ===</span>
+
+<span class="c1"># Create a scatter plot to compare actual and predicted values</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># Set the figure size for better readability</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred_xgb</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;purple&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;XGBoost Predictions&#39;</span>
+<span class="p">)</span>  <span class="c1"># Scatter plot of actual vs predicted values</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">y_train</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_train</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span>
+    <span class="p">[</span><span class="n">y_train</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_train</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span>
+    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
+    <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Ideal Fit&#39;</span><span class="p">,</span>
+<span class="p">)</span>  <span class="c1"># Plot the ideal fit line (y = x) for reference</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Actual vs Predicted (Training Set)&#39;</span><span class="p">)</span>  <span class="c1"># Add a title to the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Actual Values (y_train)&#39;</span><span class="p">)</span>  <span class="c1"># Label for the x-axis</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Predicted Values (y_train_pred)&#39;</span><span class="p">)</span>  <span class="c1"># Label for the y-axis</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>  <span class="c1"># Add a legend to distinguish the scatter points and the ideal fit line</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>  <span class="c1"># Add a grid with light transparency for better visualization</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># Display the plot</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/4cd66e3b9f376c154f586e8a800269eadca155be0bc92eb3c5a606587554fc49.png" src="../_images/4cd66e3b9f376c154f586e8a800269eadca155be0bc92eb3c5a606587554fc49.png" />
+</div>
+</div>
+</section>
+<section id="id12">
+<h4><strong>Análisis del modelo</strong><a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h4>
+<p>El modelo de XGBoost fue ajustado utilizando búsqueda de hiperparámetros (<code class="docutils literal notranslate"><span class="pre">GridSearchCV</span></code>), encontrando los siguientes parámetros óptimos:</p>
+<ul class="simple">
+<li><p><strong>Best Hyperparameters:</strong></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">learning_rate</span></code>: 0.1</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">max_depth</span></code>: 7</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n_estimators</span></code>: 300</p></li>
+</ul>
+</li>
+<li><p><strong>Mejor R² en validación cruzada:</strong> 0.8538</p></li>
+<li><p><strong>R² en conjunto de prueba:</strong> 0.8029</p></li>
+<li><p><strong>MSE:</strong> 0.00034</p></li>
+<li><p><strong>MAE:</strong> 0.00586</p></li>
+<li><p><strong>Tiempo de entrenamiento:</strong> 2.41 segundos</p></li>
+</ul>
+</section>
+<section id="id13">
+<h4><strong>Interpretación de Resultados Numéricos</strong><a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>R² (0.8029)</strong> indica que el modelo es <strong>muy bueno explicando la variabilidad del <code class="docutils literal notranslate"><span class="pre">SolarIndex</span></code></strong>. Aunque no alcanza el ajuste perfecto de Random Forest, tiene una generalización más razonable.</p></li>
+<li><p><strong>MSE (0.00034)</strong> y <strong>MAE (0.00586)</strong> muestran que el error de predicción es <strong>bajo y estable</strong>, especialmente comparado con modelos lineales.</p></li>
+<li><p>El <strong>tiempo de entrenamiento</strong> fue notablemente más corto que en Random Forest, lo que lo hace eficiente y escalable.</p></li>
+</ul>
+</section>
+<section id="id14">
+<h4><strong>Análisis Visual (Actual vs Predicted)</strong><a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h4>
+<p>En la gráfica, las predicciones del modelo (<code class="docutils literal notranslate"><span class="pre">XGBoost</span> <span class="pre">Predictions</span></code>) siguen la tendencia de la línea ideal, pero con:</p>
+<ul class="simple">
+<li><p>Una <strong>dispersión creciente a medida que los valores reales aumentan</strong>.</p></li>
+<li><p>Algunos puntos alejados de la línea, lo que indica <strong>cierta dificultad del modelo en capturar completamente los valores más altos del <code class="docutils literal notranslate"><span class="pre">SolarIndex</span></code></strong>.</p></li>
+</ul>
+<p>Aun así, la forma general de la nube de puntos es coherente con un modelo fuerte y no hay evidencia clara de sobreajuste.</p>
+<section id="id15">
+<h5><strong>Conclusión</strong><a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h5>
+<p>XGBoost ofrece una <strong>excelente precisión</strong>, con buen equilibrio entre complejidad y capacidad de generalización:</p>
+<ul class="simple">
+<li><p>Se adapta bien a datos con <strong>relaciones no lineales y múltiples interacciones</strong> entre variables.</p></li>
+<li><p>Aunque no tiene un R² perfecto como Random Forest, su comportamiento es <strong>más realista</strong> y <strong>menos propenso al sobreajuste</strong>.</p></li>
+</ul>
+<p>Es una <strong>opción recomendada como modelo final</strong> si se busca una solución robusta, rápida y explicativa.</p>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="resultados">
+<h3><strong>Resultados</strong><a class="headerlink" href="#resultados" title="Permalink to this heading">#</a></h3>
+<section id="comparacion-grafica-de-los-modelos">
+<h4><strong>Comparacion grafica de los modelos</strong><a class="headerlink" href="#comparacion-grafica-de-los-modelos" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Graphical Comparison of Regression Model Metrics ===</span>
+
+<span class="c1"># The `model_results` dictionary already contains the evaluation metrics for each model.</span>
+<span class="c1"># It is converted into a pandas DataFrame for easier manipulation and visualization.</span>
+<span class="c1"># Each row corresponds to a model, and columns represent different metrics.</span>
+
+<span class="c1"># Convert the dictionary of model results into a DataFrame for visualization</span>
+<span class="n">result_df_reg</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">model_results</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+<span class="c1"># List of metrics to visualize in the bar plots</span>
+<span class="n">metrics</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;R2&#39;</span><span class="p">,</span> <span class="s1">&#39;MSE&#39;</span><span class="p">,</span> <span class="s1">&#39;MAE&#39;</span><span class="p">,</span> <span class="s1">&#39;Training Time (s)&#39;</span><span class="p">]</span>
+
+<span class="c1"># Custom color palette for the bar plots, one color per model</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;purple&#39;</span><span class="p">]</span>
+
+<span class="c1"># Iterate through each metric and create a bar plot for comparison</span>
+<span class="k">for</span> <span class="n">metric</span> <span class="ow">in</span> <span class="n">metrics</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>  <span class="c1"># Set the figure size for better readability</span>
+    <span class="n">result_df_reg</span><span class="p">[</span><span class="n">metric</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">)</span>  <span class="c1"># Create a bar plot for the current metric</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Comparison of Models by </span><span class="si">{</span><span class="n">metric</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># Add a title to the plot</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">metric</span><span class="p">)</span>  <span class="c1"># Label the y-axis with the metric name</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>  <span class="c1"># Rotate x-axis labels for better readability</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>  <span class="c1"># Add a grid to the y-axis for easier comparison</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>  <span class="c1"># Adjust layout to prevent overlapping of elements</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># Display the plot</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/1d3a8bf0577a659d321a35d68964223257d72f70ff10cdd5498ab36557128e0a.png" src="../_images/1d3a8bf0577a659d321a35d68964223257d72f70ff10cdd5498ab36557128e0a.png" />
+<img alt="../_images/bb3dfa854f94269305717b464d2e679c1ba1342e1c4290f77609011f4e533b37.png" src="../_images/bb3dfa854f94269305717b464d2e679c1ba1342e1c4290f77609011f4e533b37.png" />
+<img alt="../_images/7521982fcf50422b856e718f7b117ce11c8fe85ea1ca73b1db5df3d1b942a374.png" src="../_images/7521982fcf50422b856e718f7b117ce11c8fe85ea1ca73b1db5df3d1b942a374.png" />
+<img alt="../_images/3751491c82ba6b0599a8e92656cca18fc248bea0f86087d1ea4365aafbaac9fa.png" src="../_images/3751491c82ba6b0599a8e92656cca18fc248bea0f86087d1ea4365aafbaac9fa.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="id16">
+<h3><a class="headerlink" href="#id16" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="conclusiones-finales-del-analisis-de-modelos-de-regresion">
+<h3><strong>Conclusiones Finales del Análisis de Modelos de Regresión</strong><a class="headerlink" href="#conclusiones-finales-del-analisis-de-modelos-de-regresion" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="id17">
+<h3><a class="headerlink" href="#id17" title="Permalink to this heading">#</a></h3>
+<p>Se evaluaron cuatro modelos de regresión (Ridge, Lasso, Random Forest y XGBoost) para predecir el índice compuesto <code class="docutils literal notranslate"><span class="pre">SolarIndex</span></code>, que representa el potencial de energía solar a partir de variables atmosféricas y de irradiancia.</p>
+</section>
+<hr class="docutils" />
+<section id="id18">
+<h3><a class="headerlink" href="#id18" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="comparacion-segun-r2-bondad-de-ajuste">
+<h3>Comparación según R² (Bondad de ajuste)<a class="headerlink" href="#comparacion-segun-r2-bondad-de-ajuste" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="id19">
+<h3><a class="headerlink" href="#id19" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Random Forest</strong>: R² ≈ 1.0</p>
+<ul>
+<li><p>Ajuste casi perfecto, pero indica sobreajuste severo en los datos de entrenamiento.</p></li>
+</ul>
+</li>
+<li><p><strong>XGBoost</strong>: R² = 0.80</p>
+<ul>
+<li><p>Excelente rendimiento y buena generalización con un ajuste sólido.</p></li>
+</ul>
+</li>
+<li><p><strong>Ridge</strong>: R² = 0.25</p>
+<ul>
+<li><p>Poder explicativo limitado. Es un buen modelo base por su estabilidad y simplicidad.</p></li>
+</ul>
+</li>
+<li><p><strong>Lasso</strong>: R² = 0.096</p>
+<ul>
+<li><p>Muy bajo rendimiento, sin capacidad predictiva destacada.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="id20">
+<h3><a class="headerlink" href="#id20" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="comparacion-segun-mse-error-cuadratico-medio">
+<h3>Comparación según MSE (Error Cuadrático Medio)<a class="headerlink" href="#comparacion-segun-mse-error-cuadratico-medio" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="id21">
+<h3><a class="headerlink" href="#id21" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Random Forest</strong>: MSE ≈ 0.000000002</p>
+<ul>
+<li><p>Error extremadamente bajo, pero reflejo de sobreajuste.</p></li>
+</ul>
+</li>
+<li><p><strong>XGBoost</strong>: MSE = 0.00034</p>
+<ul>
+<li><p>Buen ajuste con bajo error, adecuado para aplicaciones reales.</p></li>
+</ul>
+</li>
+<li><p><strong>Ridge</strong>: MSE = 0.00129</p>
+<ul>
+<li><p>Error aceptable pero mejorable.</p></li>
+</ul>
+</li>
+<li><p><strong>Lasso</strong>: MSE = 0.00156</p>
+<ul>
+<li><p>Mayor error entre los modelos evaluados.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="id22">
+<h3><a class="headerlink" href="#id22" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="comparacion-segun-mae-error-absoluto-medio">
+<h3>Comparación según MAE (Error Absoluto Medio)<a class="headerlink" href="#comparacion-segun-mae-error-absoluto-medio" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="id23">
+<h3><a class="headerlink" href="#id23" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Random Forest</strong>: MAE ≈ 0.000007</p>
+<ul>
+<li><p>Desempeño perfecto en entrenamiento, refuerza la sospecha de sobreajuste.</p></li>
+</ul>
+</li>
+<li><p><strong>XGBoost</strong>: MAE = 0.00586</p>
+<ul>
+<li><p>Error bajo con buena capacidad de predicción.</p></li>
+</ul>
+</li>
+<li><p><strong>Lasso</strong>: MAE = 0.0193</p>
+<ul>
+<li><p>Error elevado y rendimiento bajo.</p></li>
+</ul>
+</li>
+<li><p><strong>Ridge</strong>: MAE = 0.0221</p>
+<ul>
+<li><p>Similar a Lasso, también con limitaciones predictivas.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="id24">
+<h3><a class="headerlink" href="#id24" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="comparacion-segun-tiempo-de-entrenamiento">
+<h3>Comparación según Tiempo de Entrenamiento<a class="headerlink" href="#comparacion-segun-tiempo-de-entrenamiento" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="id25">
+<h3><a class="headerlink" href="#id25" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>XGBoost</strong>: 2.41 segundos</p>
+<ul>
+<li><p>Muy rápido y eficiente para la precisión obtenida.</p></li>
+</ul>
+</li>
+<li><p><strong>Lasso</strong>: 5.15 segundos</p>
+<ul>
+<li><p>Bajo tiempo de entrenamiento, pero bajo rendimiento.</p></li>
+</ul>
+</li>
+<li><p><strong>Ridge</strong>: 5.76 segundos</p>
+<ul>
+<li><p>Eficiente, pero su rendimiento es limitado.</p></li>
+</ul>
+</li>
+<li><p><strong>Random Forest</strong>: 1910.67 segundos (~31 minutos)</p>
+<ul>
+<li><p>Tiempo excesivo de entrenamiento que puede dificultar su implementación práctica.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="id26">
+<h3><a class="headerlink" href="#id26" title="Permalink to this heading">#</a></h3>
+<section id="recomendacion-final">
+<h4><strong>Recomendación Final</strong><a class="headerlink" href="#recomendacion-final" title="Permalink to this heading">#</a></h4>
+</section>
+</section>
+<section id="id27">
+<h3><a class="headerlink" href="#id27" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>XGBoost</strong> es el modelo más balanceado y <strong>recomendado</strong>: alto rendimiento, bajo error, y eficiente en tiempo.</p></li>
+<li><p><strong>Random Forest</strong> debe ser usado con precaución debido a su claro <strong>overfitting</strong>, a menos que se apliquen técnicas de control como limitación de profundidad o número mínimo de muestras por hoja.</p></li>
+<li><p><strong>Ridge</strong> puede utilizarse como modelo base por su rapidez y estabilidad, aunque su poder predictivo es limitado.</p></li>
+<li><p><strong>Lasso</strong> no es recomendable en este caso por su bajo desempeño global.</p></li>
+</ul>
+</section>
+<section id="id28">
+<h3><strong>Modelos para el caso de regresión y Benchmark</strong><a class="headerlink" href="#id28" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="ridge-and-lasso-regression">
+<h3><strong>Ridge and Lasso Regression</strong><a class="headerlink" href="#ridge-and-lasso-regression" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Cross-Validation Configuration ===</span>
+<span class="c1"># Use RepeatedKFold for robust cross-validation</span>
+<span class="c1"># - n_splits=5: 5 folds in each repetition</span>
+<span class="c1"># - n_repeats=3: Repeat the cross-validation process 3 times</span>
+<span class="c1"># - random_state=42: Ensures reproducibility of the splits</span>
+<span class="n">cv</span> <span class="o">=</span> <span class="n">RepeatedKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_repeats</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># === Polynomial Feature Transformation ===</span>
+<span class="c1"># Generate polynomial features of degree 2 (quadratic terms)</span>
+<span class="c1"># - include_bias=False: Exclude the bias (constant) term</span>
+<span class="n">poly_features</span> <span class="o">=</span> <span class="n">PolynomialFeatures</span><span class="p">(</span><span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">include_bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># === Regularization Parameter Grid ===</span>
+<span class="c1"># Define a wide range of alpha values for hyperparameter tuning</span>
+<span class="n">alphas</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]</span>
+
+<span class="c1"># ========== Ridge Regression with Polynomial Features ==========</span>
+<span class="c1"># Create a pipeline for Ridge regression:</span>
+<span class="c1"># - Step 1: Generate polynomial features</span>
+<span class="c1"># - Step 2: Standardize the features using StandardScaler</span>
+<span class="c1"># - Step 3: Apply Ridge regression</span>
+<span class="n">ridge_pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+    <span class="p">(</span><span class="s1">&#39;poly&#39;</span><span class="p">,</span> <span class="n">poly_features</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span>
+    <span class="p">(</span><span class="s1">&#39;model&#39;</span><span class="p">,</span> <span class="n">Ridge</span><span class="p">())</span>
+<span class="p">])</span>
+
+<span class="c1"># Define the hyperparameter grid for Ridge regression</span>
+<span class="n">ridge_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;model__alpha&#39;</span><span class="p">:</span> <span class="n">alphas</span><span class="p">}</span>
+
+<span class="c1"># Use GridSearchCV for hyperparameter tuning with cross-validation</span>
+<span class="n">ridge_grid</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span>
+    <span class="n">ridge_pipe</span><span class="p">,</span> <span class="n">ridge_params</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">,</span>
+    <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;r2&#39;</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span>
+<span class="p">)</span>
+
+<span class="c1"># === Training and Timing ===</span>
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>  <span class="c1"># Start the timer</span>
+<span class="n">ridge_grid</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>  <span class="c1"># Train the model</span>
+<span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>    <span class="c1"># End the timer</span>
+
+<span class="c1"># Calculate training time in seconds</span>
+<span class="n">ridge_poly_training_time</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># === Prediction ===</span>
+<span class="c1"># Predict the target variable for the test dataset using the best Ridge model</span>
+<span class="n">y_pred_ridge</span> <span class="o">=</span> <span class="n">ridge_grid</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># ========== Store Results for Ridge and Lasso with Polynomial Features ==========</span>
+<span class="c1"># Store Ridge regression results in the model_results dictionary</span>
+<span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Ridge_Poly&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Best Alpha&#39;</span><span class="p">:</span> <span class="n">ridge_grid</span><span class="o">.</span><span class="n">best_params_</span><span class="p">[</span><span class="s1">&#39;model__alpha&#39;</span><span class="p">],</span>  <span class="c1"># Best alpha value</span>
+    <span class="s1">&#39;R2&#39;</span><span class="p">:</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_ridge</span><span class="p">),</span>  <span class="c1"># Coefficient of determination</span>
+    <span class="s1">&#39;MSE&#39;</span><span class="p">:</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_ridge</span><span class="p">),</span>  <span class="c1"># Mean Squared Error</span>
+    <span class="s1">&#39;MAE&#39;</span><span class="p">:</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_ridge</span><span class="p">)</span>  <span class="c1"># Mean Absolute Error</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fitting 15 folds for each of 12 candidates, totalling 180 fits
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ridge Regression with Polynomial Features Results:&quot;</span><span class="p">)</span>
+<span class="c1"># Print the Ridge regression results in a clear and structured format</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Best Alpha: </span><span class="si">{</span><span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Ridge_Poly&#39;</span><span class="p">][</span><span class="s1">&#39;Best Alpha&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Best alpha value</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;R²: </span><span class="si">{</span><span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Ridge_Poly&#39;</span><span class="p">][</span><span class="s1">&#39;R2&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Coefficient of determination</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MSE: </span><span class="si">{</span><span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Ridge_Poly&#39;</span><span class="p">][</span><span class="s1">&#39;MSE&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Mean Squared Error</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MAE: </span><span class="si">{</span><span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Ridge_Poly&#39;</span><span class="p">][</span><span class="s1">&#39;MAE&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Mean Absolute Error</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Training Time: </span><span class="si">{</span><span class="n">ridge_poly_training_time</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>  <span class="c1"># Training time</span>
+<span class="c1"># === Predicted values for the training set using the Ridge model ===</span>
+<span class="c1"># Use the trained Ridge model (ridge_grid) to predict the target variable for the training set</span>
+<span class="n">y_train_pred_ridge</span> <span class="o">=</span> <span class="n">ridge_grid</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+
+<span class="c1"># === Visualization: Actual vs Predicted Values (Training Set) ===</span>
+<span class="c1"># Create a scatter plot to compare actual and predicted values</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># Set the figure size for better readability</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred_ridge</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Ridge Poly Predictions&#39;</span>
+<span class="p">)</span>  <span class="c1"># Scatter plot of actual vs predicted values</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">y_train</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_train</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span>
+    <span class="p">[</span><span class="n">y_train</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_train</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span>
+    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
+    <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Ideal Fit&#39;</span><span class="p">,</span>
+<span class="p">)</span>  <span class="c1"># Plot the ideal fit line (y = x) for reference</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ridge Regression with Polynomial Features Results:
+Best Alpha: 0.001
+R²: 0.5896590863785718
+MSE: 0.0007105185127585218
+MAE: 0.013128978980655057
+Training Time: 99.53 seconds
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x169880ca730&gt;]
+</pre></div>
+</div>
+<img alt="../_images/35cb7adc677422b6504227c0f3996921a97dce2de71d0afa45ee831c8d18f7ab.png" src="../_images/35cb7adc677422b6504227c0f3996921a97dce2de71d0afa45ee831c8d18f7ab.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ========== Lasso Regression with Polynomial Features ==========</span>
+<span class="c1"># Create a pipeline for Lasso regression:</span>
+<span class="c1"># - Step 1: Generate polynomial features</span>
+<span class="c1"># - Step 2: Standardize the features using StandardScaler</span>
+<span class="c1"># - Step 3: Apply Lasso regression</span>
+<span class="n">lasso_pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+    <span class="p">(</span><span class="s1">&#39;poly&#39;</span><span class="p">,</span> <span class="n">poly_features</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span>
+    <span class="p">(</span><span class="s1">&#39;model&#39;</span><span class="p">,</span> <span class="n">Lasso</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">))</span>  <span class="c1"># Increase max_iter to ensure convergence</span>
+<span class="p">])</span>
+
+<span class="c1"># Define the hyperparameter grid for Lasso regression</span>
+<span class="n">lasso_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;model__alpha&#39;</span><span class="p">:</span> <span class="n">alphas</span><span class="p">}</span>
+
+<span class="c1"># Use GridSearchCV for hyperparameter tuning with cross-validation</span>
+<span class="n">lasso_grid</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span>
+    <span class="n">lasso_pipe</span><span class="p">,</span> <span class="n">lasso_params</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">,</span>
+    <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;r2&#39;</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span>
+<span class="p">)</span>
+
+<span class="c1"># ========== Model Training and Timing ==========</span>
+<span class="c1"># Start timer</span>
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+<span class="c1"># Train the Lasso regression model and find the best alpha</span>
+<span class="n">lasso_grid</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Stop timer</span>
+<span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+<span class="c1"># Calculate training time</span>
+<span class="n">lasso_poly_training_time</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># ========== Prediction ==========</span>
+<span class="c1"># Predict the target variable for the test dataset using the best Lasso model</span>
+<span class="n">y_pred_lasso</span> <span class="o">=</span> <span class="n">lasso_grid</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># ========== Store Results ==========</span>
+<span class="c1"># Store Lasso regression results in the model_results dictionary</span>
+<span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Lasso_Poly&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Best Alpha&#39;</span><span class="p">:</span> <span class="n">lasso_grid</span><span class="o">.</span><span class="n">best_params_</span><span class="p">[</span><span class="s1">&#39;model__alpha&#39;</span><span class="p">],</span>  <span class="c1"># Best alpha value</span>
+    <span class="s1">&#39;R2&#39;</span><span class="p">:</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_lasso</span><span class="p">),</span>  <span class="c1"># Coefficient of determination</span>
+    <span class="s1">&#39;MSE&#39;</span><span class="p">:</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_lasso</span><span class="p">),</span>  <span class="c1"># Mean Squared Error</span>
+    <span class="s1">&#39;MAE&#39;</span><span class="p">:</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_lasso</span><span class="p">),</span>  <span class="c1"># Mean Absolute Error</span>
+    <span class="s1">&#39;Training Time (s)&#39;</span><span class="p">:</span> <span class="n">lasso_poly_training_time</span>  <span class="c1"># Time in seconds</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fitting 15 folds for each of 12 candidates, totalling 180 fits
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Lasso Regression with Polynomial Features Results:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Best Alpha: </span><span class="si">{</span><span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Lasso_Poly&#39;</span><span class="p">][</span><span class="s1">&#39;Best Alpha&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Best alpha value</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;R²: </span><span class="si">{</span><span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Lasso_Poly&#39;</span><span class="p">][</span><span class="s1">&#39;R2&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Coefficient of determination</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MSE: </span><span class="si">{</span><span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Lasso_Poly&#39;</span><span class="p">][</span><span class="s1">&#39;MSE&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Mean Squared Error</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MAE: </span><span class="si">{</span><span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Lasso_Poly&#39;</span><span class="p">][</span><span class="s1">&#39;MAE&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Mean Absolute Error</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Training Time: </span><span class="si">{</span><span class="n">lasso_poly_training_time</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>  <span class="c1"># Training time</span>
+<span class="c1"># === Prediction on the training set using the Lasso model ===</span>
+<span class="c1"># Use the trained Lasso model (lasso_grid) to predict the target variable for the training set</span>
+<span class="n">y_train_pred_lasso</span> <span class="o">=</span> <span class="n">lasso_grid</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+
+<span class="c1"># === Visualization: Actual vs Predicted Values (Training Set) ===</span>
+<span class="c1"># Create a scatter plot to compare actual and predicted values</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># Set the figure size for better readability</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred_lasso</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Lasso Predictions&#39;</span>
+<span class="p">)</span>  <span class="c1"># Scatter plot of actual vs predicted values</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">y_train</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_train</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span>
+    <span class="p">[</span><span class="n">y_train</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_train</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span>
+    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
+    <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Ideal Fit&#39;</span><span class="p">,</span>
+<span class="p">)</span>  <span class="c1"># Plot the ideal fit line (y = x) for reference</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Lasso Regression with Polynomial Features Results:
+Best Alpha: 0.001
+R²: 0.42159301982221686
+MSE: 0.0010015303219415685
+MAE: 0.017205274528923325
+Training Time: 258.45 seconds
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x169881bceb0&gt;]
+</pre></div>
+</div>
+<img alt="../_images/0dad59dbc8e8dca451fca5ba24a11e5a2ca567fae1d352c74f65c602dd01b8f2.png" src="../_images/0dad59dbc8e8dca451fca5ba24a11e5a2ca567fae1d352c74f65c602dd01b8f2.png" />
+</div>
+</div>
+<section id="analisis-de-lasso-y-ridge-mejorados">
+<h4><strong>Análisis de Lasso y Ridge mejorados:</strong><a class="headerlink" href="#analisis-de-lasso-y-ridge-mejorados" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Result dictionary from the combined results</span>
+<span class="n">model_results</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Ridge&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;R2&#39;</span><span class="p">:</span> <span class="mf">0.2555</span><span class="p">,</span> <span class="s1">&#39;MSE&#39;</span><span class="p">:</span> <span class="mf">0.00129</span><span class="p">,</span> <span class="s1">&#39;MAE&#39;</span><span class="p">:</span> <span class="mf">0.0221</span><span class="p">,</span> <span class="s1">&#39;Training Time (s)&#39;</span><span class="p">:</span> <span class="mf">5.76</span><span class="p">},</span>
+    <span class="s1">&#39;Lasso&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;R2&#39;</span><span class="p">:</span> <span class="mf">0.0966</span><span class="p">,</span> <span class="s1">&#39;MSE&#39;</span><span class="p">:</span> <span class="mf">0.00156</span><span class="p">,</span> <span class="s1">&#39;MAE&#39;</span><span class="p">:</span> <span class="mf">0.0193</span><span class="p">,</span> <span class="s1">&#39;Training Time (s)&#39;</span><span class="p">:</span> <span class="mf">5.15</span><span class="p">},</span>
+    <span class="s1">&#39;Ridge_Poly&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;R2&#39;</span><span class="p">:</span> <span class="mf">0.5897</span><span class="p">,</span> <span class="s1">&#39;MSE&#39;</span><span class="p">:</span> <span class="mf">0.00071</span><span class="p">,</span> <span class="s1">&#39;MAE&#39;</span><span class="p">:</span> <span class="mf">0.0131</span><span class="p">,</span> <span class="s1">&#39;Training Time (s)&#39;</span><span class="p">:</span> <span class="mf">99.53</span><span class="p">},</span>
+    <span class="s1">&#39;Lasso_Poly&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;R2&#39;</span><span class="p">:</span> <span class="mf">0.4216</span><span class="p">,</span> <span class="s1">&#39;MSE&#39;</span><span class="p">:</span> <span class="mf">0.00100</span><span class="p">,</span> <span class="s1">&#39;MAE&#39;</span><span class="p">:</span> <span class="mf">0.0172</span><span class="p">,</span> <span class="s1">&#39;Training Time (s)&#39;</span><span class="p">:</span> <span class="mf">258.45</span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1"># Convert to DataFrame</span>
+<span class="n">result_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">model_results</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+<span class="c1"># Define metrics</span>
+<span class="n">metrics</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;R2&#39;</span><span class="p">,</span> <span class="s1">&#39;MSE&#39;</span><span class="p">,</span> <span class="s1">&#39;MAE&#39;</span><span class="p">,</span> <span class="s1">&#39;Training Time (s)&#39;</span><span class="p">]</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">]</span>  <span class="c1"># Colors for each model</span>
+
+<span class="c1"># Plotting</span>
+<span class="k">for</span> <span class="n">metric</span> <span class="ow">in</span> <span class="n">metrics</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+    <span class="n">result_df</span><span class="p">[</span><span class="n">metric</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Comparación de modelos según </span><span class="si">{</span><span class="n">metric</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">metric</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/205f0446e896b9a54757653fbb9fbead617308d650c1a62b4f5e736dbb0b1abc.png" src="../_images/205f0446e896b9a54757653fbb9fbead617308d650c1a62b4f5e736dbb0b1abc.png" />
+<img alt="../_images/998a66abc2a8f2d8d3997f0da78db36f6c0d88d30c6fbc544d0bcafe45b2c8b5.png" src="../_images/998a66abc2a8f2d8d3997f0da78db36f6c0d88d30c6fbc544d0bcafe45b2c8b5.png" />
+<img alt="../_images/f442a52f91192e9c32a61ba4cadc94f8db2c3456692159e6e13bfd440ca8cfe5.png" src="../_images/f442a52f91192e9c32a61ba4cadc94f8db2c3456692159e6e13bfd440ca8cfe5.png" />
+<img alt="../_images/e71b9e6fa96047c49bb87b609670da4c6c56cf3487267c4d38c52192c2506862.png" src="../_images/e71b9e6fa96047c49bb87b609670da4c6c56cf3487267c4d38c52192c2506862.png" />
+</div>
+</div>
+<section id="comparacion-de-modelos-lineales-antes-vs-despues-de-la-optimizacion">
+<h5><strong>Comparación de Modelos Lineales: Antes vs Después de la Optimización</strong><a class="headerlink" href="#comparacion-de-modelos-lineales-antes-vs-despues-de-la-optimizacion" title="Permalink to this heading">#</a></h5>
+<p>Se evaluaron las versiones extendidas de Ridge y Lasso Regression incorporando:</p>
+<ul class="simple">
+<li><p>Transformación polinómica (grado 2) para capturar relaciones no lineales.</p></li>
+<li><p>Validación cruzada repetida (RepeatedKFold) para mayor robustez.</p></li>
+<li><p>Rango más amplio de valores de α (alpha) para un ajuste fino de regularización.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="ridge-regression-optimizado">
+<h5>1. Ridge Regression (Optimizado)<a class="headerlink" href="#ridge-regression-optimizado" title="Permalink to this heading">#</a></h5>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Métrica</p></th>
+<th class="head"><p>Modelo Original</p></th>
+<th class="head"><p>Modelo con PolynomialFeatures</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>R²</p></td>
+<td><p>0.2555</p></td>
+<td><p>0.5896</p></td>
+</tr>
+<tr class="row-odd"><td><p>MSE</p></td>
+<td><p>0.00129</p></td>
+<td><p>0.00071</p></td>
+</tr>
+<tr class="row-even"><td><p>MAE</p></td>
+<td><p>0.0221</p></td>
+<td><p>0.0131</p></td>
+</tr>
+<tr class="row-odd"><td><p>Tiempo de Entrenamiento</p></td>
+<td><p>5.76 s</p></td>
+<td><p>99.53 s</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Análisis</strong>:<br />
+La inclusión de términos polinómicos mejora significativamente el ajuste del modelo, reduciendo los errores y aumentando la capacidad explicativa. El tiempo de entrenamiento es mayor, pero aceptable para tareas analíticas.</p>
+</section>
+<hr class="docutils" />
+<section id="lasso-regression-optimizado">
+<h5>2. Lasso Regression (Optimizado)<a class="headerlink" href="#lasso-regression-optimizado" title="Permalink to this heading">#</a></h5>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Métrica</p></th>
+<th class="head"><p>Modelo Original</p></th>
+<th class="head"><p>Modelo con PolynomialFeatures</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>R²</p></td>
+<td><p>0.0965</p></td>
+<td><p>0.4216</p></td>
+</tr>
+<tr class="row-odd"><td><p>MSE</p></td>
+<td><p>0.00156</p></td>
+<td><p>0.00100</p></td>
+</tr>
+<tr class="row-even"><td><p>MAE</p></td>
+<td><p>0.0193</p></td>
+<td><p>0.0172</p></td>
+</tr>
+<tr class="row-odd"><td><p>Tiempo de Entrenamiento</p></td>
+<td><p>5.15 s</p></td>
+<td><p>258.45 s</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Análisis</strong>:<br />
+El modelo Lasso optimizado mejora de manera moderada, aunque con un aumento considerable en el tiempo de entrenamiento. Puede ser útil cuando se busca interpretar o seleccionar variables, pero no es el más eficiente para predicción.</p>
+</section>
+<hr class="docutils" />
+<section id="conclusion-comparativa">
+<h5>Conclusión Comparativa<a class="headerlink" href="#conclusion-comparativa" title="Permalink to this heading">#</a></h5>
+<ul class="simple">
+<li><p>La incorporación de características polinómicas mejora el rendimiento de los modelos lineales.</p></li>
+<li><p>Ridge con PolynomialFeatures ofrece una alternativa sólida entre precisión y eficiencia computacional.</p></li>
+<li><p>XGBoost continúa siendo el modelo más robusto en términos de desempeño predictivo.</p></li>
+<li><p>Se recomienda Ridge+Polynomial como modelo base interpretable, mientras que XGBoost es ideal para aplicaciones donde la precisión es crítica.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="conclusion-final">
+<h3><strong>Conclusion final</strong><a class="headerlink" href="#conclusion-final" title="Permalink to this heading">#</a></h3>
+<p>En este análisis, <strong>no se aplicó un proceso de optimización adicional al modelo de Random Forest</strong>, ya que su entrenamiento original ya implicó una búsqueda de hiperparámetros para encontrar el mejor número de árboles (<code class="docutils literal notranslate"><span class="pre">n_estimators</span></code>). Sin embargo, debido a su <strong>elevado costo computacional</strong> (más de 30 minutos de entrenamiento), se decidió no continuar afinando este modelo para no comprometer la eficiencia temporal del sistema.</p>
+<p>Por otro lado, <strong>XGBoost fue entrenado con un conjunto de hiperparámetros optimizados</strong>, logrando un excelente equilibrio entre precisión y tiempo de entrenamiento. Debido a sus resultados sobresalientes (R² superior al 0.80 con un tiempo menor a 3 segundos), <strong>este modelo será considerado como el punto de referencia (baseline)</strong> a superar o igualar mediante modelos más simples y explicables como Ridge con características polinómicas. Esta estrategia permite balancear <strong>eficiencia, interpretabilidad y capacidad predictiva</strong> en futuras implementaciones.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="eda.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><strong>Exploración de Datos (EDA)</strong></p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="metodologia_modelos_clasificacion.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><strong>Modelos de clasificación</strong></p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#librerias"><strong>Librerias:</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-problema-evaluacion-del-potencial-de-energia-solar-en-barranquilla-analisis-de-irradiancia-y-variables-atmosfericas-para-la-generacion-sostenible"><strong>Caso problema: Evaluación del potencial de energía Solar en Barranquilla: Análisis de irradiancia y variables atmosféricas para la generación sostenible</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#contextualizacion"><strong>Contextualización</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modelos-para-el-caso-de-regresion-y-benchmark"><strong>Modelos para el caso de regresión y Benchmark</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ridge-regression"><strong>Ridge Regression</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evalucion"><strong>Evalución</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-del-modelo"><strong>Análisis del modelo</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretacion-de-resultados-numericos"><strong>Interpretación de Resultados Numéricos</strong></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-visual-actual-vs-predicted"><strong>Análisis Visual (Actual vs Predicted)</strong></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion"><strong>Conclusión</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lasso-regression"><strong>Lasso Regression</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><strong>Evalución</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><strong>Análisis del modelo</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id3"><strong>Interpretación de Resultados Numéricos</strong></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id4"><strong>Análisis Visual (Actual vs Predicted)</strong></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id5"><strong>Conclusión</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-forest"><strong>Random Forest</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6"><strong>Evalución</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7"><strong>Análisis del modelo</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id8"><strong>Interpretación de Resultados Numéricos</strong></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id9"><strong>Análisis Visual (Actual vs Predicted)</strong></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id10"><strong>Conclusión</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#xgboost"><strong>XGBoost</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11"><strong>Evalución</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id12"><strong>Análisis del modelo</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id13"><strong>Interpretación de Resultados Numéricos</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id14"><strong>Análisis Visual (Actual vs Predicted)</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id15"><strong>Conclusión</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resultados"><strong>Resultados</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#comparacion-grafica-de-los-modelos"><strong>Comparacion grafica de los modelos</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16"></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusiones-finales-del-analisis-de-modelos-de-regresion"><strong>Conclusiones Finales del Análisis de Modelos de Regresión</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17"></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18"></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparacion-segun-r2-bondad-de-ajuste">Comparación según R² (Bondad de ajuste)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19"></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20"></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparacion-segun-mse-error-cuadratico-medio">Comparación según MSE (Error Cuadrático Medio)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21"></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id22"></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparacion-segun-mae-error-absoluto-medio">Comparación según MAE (Error Absoluto Medio)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23"></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24"></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparacion-segun-tiempo-de-entrenamiento">Comparación según Tiempo de Entrenamiento</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25"></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26"></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#recomendacion-final"><strong>Recomendación Final</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id27"></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id28"><strong>Modelos para el caso de regresión y Benchmark</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ridge-and-lasso-regression"><strong>Ridge and Lasso Regression</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-de-lasso-y-ridge-mejorados"><strong>Análisis de Lasso y Ridge mejorados:</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#comparacion-de-modelos-lineales-antes-vs-despues-de-la-optimizacion"><strong>Comparación de Modelos Lineales: Antes vs Después de la Optimización</strong></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#ridge-regression-optimizado">1. Ridge Regression (Optimizado)</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#lasso-regression-optimizado">2. Lasso Regression (Optimizado)</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion-comparativa">Conclusión Comparativa</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion-final"><strong>Conclusion final</strong></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Eliana Rodríguez - Jesús Arévalo
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
