@@ -438,6 +438,16 @@ document.write(`
 </li>
 </ul>
 </li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#knn-and-regression-optimized"><strong>KNN and Regression (optimized)</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#analsis-de-regresion-lineal-y-knn-mejorados"><strong>Análsis de Regresion lineal y KNN mejorados</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#comparacion-de-modelos-lineal-y-knn-antes-vs-despues-de-la-optimizacion"><strong>Comparación de Modelos: Lineal y KNN - Antes vs Después de la Optimización</strong></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression-con-y-sin-polynomialfeatures">1. Linear Regression (con y sin PolynomialFeatures)</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#k-nearest-neighbors-knn">2. K-Nearest Neighbors (KNN)</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id39">Conclusión Comparativa</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion-final"><strong>Conclusion final</strong></a></li>
 </ul>
 </li>
@@ -483,6 +493,9 @@ document.write(`
 
 <span class="c1"># Importing time module for measuring execution time</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">cross_val_score</span>
+<span class="c1"># Importing cross_val_score for cross-validation scoring</span>
 
 <span class="c1"># Importing train_test_split for splitting data into training and testing sets</span>
 <span class="c1"># Importing GridSearchCV for hyperparameter tuning using grid search</span>
@@ -588,22 +601,30 @@ document.write(`
 <h3><strong>KNN</strong><a class="headerlink" href="#knn" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Regresión K-Nearest Neighbors (KNN) ===</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === K-Nearest Neighbors (KNN) Regression ===</span>
 
-<span class="c1"># Crear el pipeline con estandarización y KNN</span>
+<span class="c1"># Create a pipeline for KNN regression:</span>
+<span class="c1"># - Step 1: StandardScaler for feature scaling (mean=0, variance=1)</span>
+<span class="c1"># - Step 2: KNeighborsRegressor with n_neighbors=5 (default value, can be adjusted)</span>
 <span class="n">knn_model</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
-    <span class="p">(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span>
-    <span class="p">(</span><span class="s1">&#39;model&#39;</span><span class="p">,</span> <span class="n">KNeighborsRegressor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>  <span class="c1"># puedes ajustar n_neighbors</span>
+    <span class="p">(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span>  <span class="c1"># Standardize features to improve model performance</span>
+    <span class="p">(</span><span class="s1">&#39;model&#39;</span><span class="p">,</span> <span class="n">KNeighborsRegressor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>  <span class="c1"># KNN regression model</span>
 <span class="p">])</span>
 
-<span class="c1"># Entrenamiento y tiempo</span>
-<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="n">knn_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="c1"># === Model Training and Timing ===</span>
+<span class="c1"># Measure the time taken to train the KNN model</span>
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>  <span class="c1"># Record the start time</span>
+<span class="n">knn_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>  <span class="c1"># Train the KNN model using the training dataset</span>
+<span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>  <span class="c1"># Record the end time</span>
 
-<span class="c1"># Predicción y evaluación</span>
-<span class="n">y_pred_knn</span> <span class="o">=</span> <span class="n">knn_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-<span class="n">knn_training_time</span> <span class="o">=</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span>
+<span class="c1"># Calculate the total training time in seconds</span>
+<span class="n">knn_training_time</span> <span class="o">=</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span>  <span class="c1"># Compute the elapsed training time</span>
+
+<span class="c1"># === Prediction and Evaluation ===</span>
+<span class="c1"># Predict the target variable for the test dataset</span>
+<span class="c1"># - X_test: Predictor variables for testing</span>
+<span class="c1"># - y_pred_knn: Predicted values for the test set</span>
+<span class="n">y_pred_knn</span> <span class="o">=</span> <span class="n">knn_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>  <span class="c1"># Generate predictions using the trained model</span>
 </pre></div>
 </div>
 </div>
@@ -612,18 +633,26 @@ document.write(`
 <h4><strong>Evaluación</strong><a class="headerlink" href="#evaluacion" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Almacenar resultados</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Store KNN Model Results ===</span>
+<span class="c1"># Add the evaluation metrics for the KNN model to the `model_results` dictionary</span>
+<span class="c1"># - &#39;R2&#39;: Coefficient of determination, measures the goodness of fit of the model</span>
+<span class="c1"># - &#39;MSE&#39;: Mean Squared Error, measures the average squared difference between actual and predicted values</span>
+<span class="c1"># - &#39;MAE&#39;: Mean Absolute Error, measures the average absolute difference between actual and predicted values</span>
+<span class="c1"># - &#39;Training Time (s)&#39;: Total training time in seconds, rounded to 2 decimal places</span>
 <span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;KNN&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;R2&#39;</span><span class="p">:</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_knn</span><span class="p">),</span>
-    <span class="s1">&#39;MSE&#39;</span><span class="p">:</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_knn</span><span class="p">),</span>
-    <span class="s1">&#39;MAE&#39;</span><span class="p">:</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_knn</span><span class="p">),</span>
-    <span class="s1">&#39;Training Time (s)&#39;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">knn_training_time</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="s1">&#39;R2&#39;</span><span class="p">:</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_knn</span><span class="p">),</span>  <span class="c1"># Calculate R² score for the test set</span>
+    <span class="s1">&#39;MSE&#39;</span><span class="p">:</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_knn</span><span class="p">),</span>  <span class="c1"># Calculate Mean Squared Error</span>
+    <span class="s1">&#39;MAE&#39;</span><span class="p">:</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_knn</span><span class="p">),</span>  <span class="c1"># Calculate Mean Absolute Error</span>
+    <span class="s1">&#39;Training Time (s)&#39;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">knn_training_time</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># Record training time rounded to 2 decimals</span>
 <span class="p">}</span>
+
+<span class="c1"># === Print KNN Model Results ===</span>
+<span class="c1"># Display the evaluation metrics for the KNN model in a clear and structured format</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;KNN Results:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;R2:&quot;</span><span class="p">,</span> <span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;KNN&#39;</span><span class="p">][</span><span class="s1">&#39;R2&#39;</span><span class="p">])</span>    
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MSE:&quot;</span><span class="p">,</span> <span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;KNN&#39;</span><span class="p">][</span><span class="s1">&#39;MSE&#39;</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MAE:&quot;</span><span class="p">,</span> <span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;KNN&#39;</span><span class="p">][</span><span class="s1">&#39;MAE&#39;</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training Time (s):&quot;</span><span class="p">,</span> <span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;KNN&#39;</span><span class="p">][</span><span class="s1">&#39;Training Time (s)&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;R2:&quot;</span><span class="p">,</span> <span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;KNN&#39;</span><span class="p">][</span><span class="s1">&#39;R2&#39;</span><span class="p">])</span>  <span class="c1"># Display R² score</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MSE:&quot;</span><span class="p">,</span> <span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;KNN&#39;</span><span class="p">][</span><span class="s1">&#39;MSE&#39;</span><span class="p">])</span>  <span class="c1"># Display Mean Squared Error</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MAE:&quot;</span><span class="p">,</span> <span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;KNN&#39;</span><span class="p">][</span><span class="s1">&#39;MAE&#39;</span><span class="p">])</span>  <span class="c1"># Display Mean Absolute Error</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training Time (s):&quot;</span><span class="p">,</span> <span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;KNN&#39;</span><span class="p">][</span><span class="s1">&#39;Training Time (s)&#39;</span><span class="p">])</span>  <span class="c1"># Display training time</span>
 </pre></div>
 </div>
 </div>
@@ -632,7 +661,7 @@ document.write(`
 R2: 0.9999273186688901
 MSE: 1.2585006654533117e-07
 MAE: 8.691024951373174e-06
-Training Time (s): 14.15
+Training Time (s): 10.32
 </pre></div>
 </div>
 </div>
@@ -640,18 +669,30 @@ Training Time (s): 14.15
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Predicted values for the training set using the KNN model ===</span>
+<span class="c1"># Generate predictions for the training set using the trained KNN model</span>
+<span class="c1"># - y_train: Actual target values for the training set</span>
+<span class="c1"># - y_train_pred_knn: Predicted target values for the training set</span>
 <span class="n">y_train_pred_knn</span> <span class="o">=</span> <span class="n">knn_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
 
 <span class="c1"># === Plotting actual vs predicted values for the training set ===</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred_knn</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;KNN Predictions&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">y_train</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_train</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span> <span class="p">[</span><span class="n">y_train</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_train</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Ideal Fit&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Actual vs Predicted (Training Set) - KNN&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Actual Values (y_train)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Predicted Values (y_train_pred)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="c1"># Create a scatter plot to visualize the relationship between actual and predicted values</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># Set the figure size for better readability</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred_knn</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;KNN Predictions&#39;</span>
+<span class="p">)</span>  <span class="c1"># Scatter plot of actual vs predicted values</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">y_train</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_train</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span>
+    <span class="p">[</span><span class="n">y_train</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_train</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span>
+    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
+    <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Ideal Fit&#39;</span><span class="p">,</span>
+<span class="p">)</span>  <span class="c1"># Plot the ideal fit line (y = x) for reference</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Actual vs Predicted (Training Set) - KNN&#39;</span><span class="p">)</span>  <span class="c1"># Add a title to the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Actual Values (y_train)&#39;</span><span class="p">)</span>  <span class="c1"># Label for the x-axis</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Predicted Values (y_train_pred)&#39;</span><span class="p">)</span>  <span class="c1"># Label for the y-axis</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>  <span class="c1"># Add a legend to distinguish the scatter points and the ideal fit line</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>  <span class="c1"># Add a grid with light transparency for better visualization</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># Display the plot</span>
 </pre></div>
 </div>
 </div>
@@ -2010,6 +2051,7 @@ Training Time: 99.53 seconds
 <img alt="../_images/35cb7adc677422b6504227c0f3996921a97dce2de71d0afa45ee831c8d18f7ab.png" src="../_images/35cb7adc677422b6504227c0f3996921a97dce2de71d0afa45ee831c8d18f7ab.png" />
 </div>
 </div>
+<hr class="docutils" />
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ========== Lasso Regression with Polynomial Features ==========</span>
@@ -2234,6 +2276,384 @@ El modelo Lasso optimizado mejora de manera moderada, aunque con un aumento cons
 </section>
 </section>
 </section>
+<section id="knn-and-regression-optimized">
+<h3><strong>KNN and Regression (optimized)</strong><a class="headerlink" href="#knn-and-regression-optimized" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Parameters for GridSearchCV ===</span>
+<span class="c1"># Define the hyperparameter grid for KNN:</span>
+<span class="c1"># - &#39;model__n_neighbors&#39;: Number of neighbors to consider for prediction</span>
+<span class="c1"># - &#39;model__weights&#39;: Weight function used in prediction (&#39;uniform&#39; or &#39;distance&#39;)</span>
+<span class="c1"># - &#39;model__p&#39;: Power parameter for the Minkowski metric (1=Manhattan, 2=Euclidean)</span>
+<span class="n">knn_params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;model__n_neighbors&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">11</span><span class="p">],</span>
+    <span class="s1">&#39;model__weights&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="s1">&#39;distance&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;model__p&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>  <span class="c1"># Manhattan (1) and Euclidean (2) distances</span>
+<span class="p">}</span>
+
+<span class="c1"># === Pipeline for KNN ===</span>
+<span class="c1"># Create a pipeline with the following steps:</span>
+<span class="c1"># - Step 1: StandardScaler to normalize the features (mean=0, variance=1)</span>
+<span class="c1"># - Step 2: KNeighborsRegressor as the regression model</span>
+<span class="n">knn_pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+    <span class="p">(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span>  <span class="c1"># Feature scaling</span>
+    <span class="p">(</span><span class="s1">&#39;model&#39;</span><span class="p">,</span> <span class="n">KNeighborsRegressor</span><span class="p">())</span>  <span class="c1"># KNN regression model</span>
+<span class="p">])</span>
+
+<span class="c1"># === GridSearchCV for Hyperparameter Optimization ===</span>
+<span class="c1"># Use GridSearchCV to find the best combination of hyperparameters:</span>
+<span class="c1"># - cv=5: Perform 5-fold cross-validation</span>
+<span class="c1"># - scoring=&#39;r2&#39;: Use R² as the evaluation metric</span>
+<span class="c1"># - n_jobs=-1: Utilize all available CPU cores for parallel processing</span>
+<span class="c1"># - verbose=1: Display progress during the search</span>
+<span class="n">knn_grid</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">knn_pipe</span><span class="p">,</span> <span class="n">knn_params</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;r2&#39;</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># === Training and Timing ===</span>
+<span class="c1"># Measure the time taken to train the KNN model with GridSearchCV</span>
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>  <span class="c1"># Record the start time</span>
+<span class="n">knn_grid</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>  <span class="c1"># Train the model and perform hyperparameter search</span>
+<span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>  <span class="c1"># Record the end time</span>
+
+<span class="c1"># Calculate the total training time in seconds</span>
+<span class="n">knn_training_time</span> <span class="o">=</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span>  <span class="c1"># Compute elapsed time</span>
+
+<span class="c1"># === Predictions and Metrics ===</span>
+<span class="c1"># Generate predictions for the test dataset using the best KNN model</span>
+<span class="c1"># - X_test: Predictor variables for testing</span>
+<span class="c1"># - y_pred_knn_opt: Predicted values for the test set</span>
+<span class="n">y_pred_knn_opt</span> <span class="o">=</span> <span class="n">knn_grid</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>  <span class="c1"># Predict using the optimized model</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fitting 5 folds for each of 20 candidates, totalling 100 fits
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;knn with the best hyperparameters found:&quot;</span><span class="p">)</span>
+
+<span class="c1"># === Display the best hyperparameters found during GridSearchCV ===</span>
+
+
+<span class="c1"># - knn_grid.best_params_: Dictionary of the best hyperparameters for the KNN model</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best hyperparameters found:&quot;</span><span class="p">,</span> <span class="n">knn_grid</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
+
+<span class="c1"># === Evaluate the KNN model on the test dataset ===</span>
+<span class="c1"># - R²: Coefficient of determination, measures how well the model explains the variability of the target variable</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;R²:&quot;</span><span class="p">,</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_knn_opt</span><span class="p">))</span>
+
+<span class="c1"># - MSE: Mean Squared Error, measures the average squared difference between actual and predicted values</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MSE:&quot;</span><span class="p">,</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_knn_opt</span><span class="p">))</span>
+
+<span class="c1"># - MAE: Mean Absolute Error, measures the average absolute difference between actual and predicted values</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MAE:&quot;</span><span class="p">,</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_knn_opt</span><span class="p">))</span>
+
+<span class="c1"># === Display the total training time for the KNN model ===</span>
+<span class="c1"># - knn_training_time: Time taken to train the model, rounded to 2 decimal places for readability</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training time (s):&quot;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">knn_training_time</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>knn with the best hyperparameters found:
+Best hyperparameters found: {&#39;model__n_neighbors&#39;: 11, &#39;model__p&#39;: 1, &#39;model__weights&#39;: &#39;distance&#39;}
+R²: 0.999999901049925
+MSE: 1.7133524292667098e-10
+MAE: 4.85113266456339e-06
+Training time (s): 164.77
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Create a figure for visualization ===</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># Set the figure size for better readability</span>
+
+<span class="c1"># === Scatter Plot: Actual vs Predicted Values ===</span>
+<span class="c1"># Plot the actual values (y_test) against the predicted values (y_pred_knn_opt)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_knn_opt</span><span class="p">,</span> 
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> 
+    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;KNN Predictions&#39;</span>  <span class="c1"># Add a label for the legend</span>
+<span class="p">)</span>
+
+<span class="c1"># === Ideal Fit Line (y = x) ===</span>
+<span class="c1"># Plot a reference line to indicate the ideal fit (perfect predictions)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">y_test</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_test</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span>  <span class="c1"># Define the range for the line</span>
+    <span class="p">[</span><span class="n">y_test</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_test</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span> 
+    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> 
+    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Ideal Fit&#39;</span>  <span class="c1"># Add a label for the legend</span>
+<span class="p">)</span>
+
+<span class="c1"># === Add Titles and Labels ===</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Actual vs Predicted (KNN Optimized)&#39;</span><span class="p">)</span>  <span class="c1"># Add a title to the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Actual Values (y_test)&#39;</span><span class="p">)</span>  <span class="c1"># Label for the x-axis</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Predicted Values (y_pred_knn_opt)&#39;</span><span class="p">)</span>  <span class="c1"># Label for the y-axis</span>
+
+<span class="c1"># === Add Legend and Grid ===</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>  <span class="c1"># Display the legend to differentiate between the scatter points and the ideal fit line</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>  <span class="c1"># Add a grid with light transparency for better visualization</span>
+
+<span class="c1"># === Adjust Layout and Display ===</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>  <span class="c1"># Adjust the layout to prevent overlapping elements</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># Display the plot</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/1bd9fdd51f55a549768435d48d827c1aac536b8ea6d5f75e12041924e63b15f7.png" src="../_images/1bd9fdd51f55a549768435d48d827c1aac536b8ea6d5f75e12041924e63b15f7.png" />
+</div>
+</div>
+<hr class="docutils" />
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Polynomial Feature Transformation ===</span>
+<span class="c1"># Generate polynomial features of degree 2 (you can try 3 también si deseas)</span>
+<span class="n">poly_features</span> <span class="o">=</span> <span class="n">PolynomialFeatures</span><span class="p">(</span><span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">include_bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># === Linear Regression Pipeline with Polynomial Features ===</span>
+<span class="n">linear_poly_pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+    <span class="p">(</span><span class="s1">&#39;poly&#39;</span><span class="p">,</span> <span class="n">poly_features</span><span class="p">),</span>          <span class="c1"># Step 1: Add polynomial terms</span>
+    <span class="p">(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span>     <span class="c1"># Step 2: Standardize features</span>
+    <span class="p">(</span><span class="s1">&#39;model&#39;</span><span class="p">,</span> <span class="n">LinearRegression</span><span class="p">())</span>     <span class="c1"># Step 3: Linear Regression</span>
+<span class="p">])</span>
+
+<span class="c1"># === Training with Timing ===</span>
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>                      <span class="c1"># Start timer</span>
+<span class="n">linear_poly_pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>        <span class="c1"># Fit model</span>
+<span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>                        <span class="c1"># End timer</span>
+<span class="n">linear_poly_training_time</span> <span class="o">=</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span>  <span class="c1"># Training duration</span>
+
+<span class="c1"># === Prediction and Evaluation ===</span>
+<span class="n">y_pred_linear_poly</span> <span class="o">=</span> <span class="n">linear_poly_pipe</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>  <span class="c1"># Predict on test data</span>
+
+<span class="c1"># Optional: Cross-validated R² for robustness</span>
+<span class="n">cv_r2</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">linear_poly_pipe</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;r2&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="c1"># === Output results ===</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Training Time: </span><span class="si">{</span><span class="n">linear_poly_training_time</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cross-Validated R²: </span><span class="si">{</span><span class="n">cv_r2</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Training Time: 3.82 seconds
+Cross-Validated R²: 0.5904
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Evaluate the performance of the Linear Regression model with Polynomial Features ===</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Linear Regression with Polynomial Features Results:&quot;</span><span class="p">)</span>
+
+<span class="c1"># Print the R² score for the test dataset</span>
+<span class="c1"># R² (coefficient of determination) indicates how well the model explains the variability of the target variable</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test R²: </span><span class="si">{</span><span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="w"> </span><span class="n">y_pred_linear_poly</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Print the Mean Squared Error (MSE) for the test dataset</span>
+<span class="c1"># MSE measures the average squared difference between actual and predicted values</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test MSE: </span><span class="si">{</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="w"> </span><span class="n">y_pred_linear_poly</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Print the Mean Absolute Error (MAE) for the test dataset</span>
+<span class="c1"># MAE measures the average absolute difference between actual and predicted values</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test MAE: </span><span class="si">{</span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="w"> </span><span class="n">y_pred_linear_poly</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Print the total training time for the model</span>
+<span class="c1"># This helps evaluate the computational efficiency of the model</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Training Time: </span><span class="si">{</span><span class="n">linear_poly_training_time</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Linear Regression with Polynomial Features Results:
+Test R²: 0.5897
+Test MSE: 0.0007
+Test MAE: 0.0131
+Training Time: 3.82 seconds
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Visualization: Actual vs Predicted Plot for Linear Regression with PolynomialFeatures ===</span>
+
+<span class="c1"># Ensure the following variables are correctly defined:</span>
+<span class="c1"># - y_test: Actual target values from the test dataset</span>
+<span class="c1"># - y_pred_linear_poly: Predicted values from the trained polynomial regression model</span>
+
+<span class="c1"># Create a scatter plot to visualize the relationship between actual and predicted values</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># Set the figure size for better readability</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_linear_poly</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Predictions&#39;</span>
+<span class="p">)</span>  <span class="c1"># Scatter plot of actual vs predicted values</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">y_test</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_test</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span>
+    <span class="p">[</span><span class="n">y_test</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_test</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span>
+    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
+    <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Ideal Fit (y = x)&#39;</span><span class="p">,</span>
+<span class="p">)</span>  <span class="c1"># Plot the ideal fit line (y = x) for reference</span>
+
+<span class="c1"># Add title and axis labels for clarity</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Actual vs Predicted - Linear Regression with PolynomialFeatures&#39;</span><span class="p">)</span>  <span class="c1"># Plot title</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Actual Values (y_test)&#39;</span><span class="p">)</span>  <span class="c1"># Label for the x-axis</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Predicted Values (y_pred)&#39;</span><span class="p">)</span>  <span class="c1"># Label for the y-axis</span>
+
+<span class="c1"># Add legend and grid for better visualization</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>  <span class="c1"># Add a legend to distinguish the scatter points and the ideal fit line</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>  <span class="c1"># Add a grid with light transparency for better visualization</span>
+
+<span class="c1"># Adjust layout to prevent overlapping elements and display the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>  <span class="c1"># Automatically adjust subplot parameters for better layout</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># Display the plot</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/bab254cb562ab701b190d805087e883a879ee71ffc830bcf5749b9b999280a07.png" src="../_images/bab254cb562ab701b190d805087e883a879ee71ffc830bcf5749b9b999280a07.png" />
+</div>
+</div>
+<section id="analsis-de-regresion-lineal-y-knn-mejorados">
+<h4><strong>Análsis de Regresion lineal y KNN mejorados</strong><a class="headerlink" href="#analsis-de-regresion-lineal-y-knn-mejorados" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Result dictionary from the combined results</span>
+<span class="n">model_results</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Linear&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;R2&quot;</span><span class="p">:</span> <span class="mf">0.2555</span><span class="p">,</span> <span class="s2">&quot;MSE&quot;</span><span class="p">:</span> <span class="mf">0.00129</span><span class="p">,</span> <span class="s2">&quot;MAE&quot;</span><span class="p">:</span> <span class="mf">0.0221</span><span class="p">,</span> <span class="s2">&quot;Training Time (s)&quot;</span><span class="p">:</span> <span class="mf">0.36</span><span class="p">},</span>
+    <span class="s2">&quot;Linear_Poly&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;R2&quot;</span><span class="p">:</span> <span class="mf">0.5897</span><span class="p">,</span>
+        <span class="s2">&quot;MSE&quot;</span><span class="p">:</span> <span class="mf">0.0007</span><span class="p">,</span>
+        <span class="s2">&quot;MAE&quot;</span><span class="p">:</span> <span class="mf">0.0131</span><span class="p">,</span>
+        <span class="s2">&quot;Training Time (s)&quot;</span><span class="p">:</span> <span class="mf">3.82</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;KNN&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;R2&quot;</span><span class="p">:</span> <span class="mf">0.9999</span><span class="p">,</span> <span class="s2">&quot;MSE&quot;</span><span class="p">:</span> <span class="mf">1.26e-07</span><span class="p">,</span> <span class="s2">&quot;MAE&quot;</span><span class="p">:</span> <span class="mf">8.69e-06</span><span class="p">,</span> <span class="s2">&quot;Training Time (s)&quot;</span><span class="p">:</span> <span class="mf">3.8</span><span class="p">},</span>
+    <span class="s2">&quot;KNN_Opt&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;R2&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="s2">&quot;MSE&quot;</span><span class="p">:</span> <span class="mf">1.71e-10</span><span class="p">,</span>
+        <span class="s2">&quot;MAE&quot;</span><span class="p">:</span> <span class="mf">4.85e-06</span><span class="p">,</span>
+        <span class="s2">&quot;Training Time (s)&quot;</span><span class="p">:</span> <span class="mf">164.77</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+
+<span class="c1"># Convert to DataFrame</span>
+<span class="n">result_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">model_results</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+<span class="c1"># Define metrics and color palette</span>
+<span class="n">metrics</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;R2&quot;</span><span class="p">,</span> <span class="s2">&quot;MSE&quot;</span><span class="p">,</span> <span class="s2">&quot;MAE&quot;</span><span class="p">,</span> <span class="s2">&quot;Training Time (s)&quot;</span><span class="p">]</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;skyblue&quot;</span><span class="p">,</span> <span class="s2">&quot;orange&quot;</span><span class="p">,</span> <span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="s2">&quot;purple&quot;</span><span class="p">]</span>
+
+<span class="c1"># Plotting</span>
+<span class="k">for</span> <span class="n">metric</span> <span class="ow">in</span> <span class="n">metrics</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+    <span class="n">result_df</span><span class="p">[</span><span class="n">metric</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Comparación de modelos según </span><span class="si">{</span><span class="n">metric</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">metric</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/ad7fccbfef12d95942e51a73c1e61e4a63e0275e17f24ad5e8a2c0691c29bf02.png" src="../_images/ad7fccbfef12d95942e51a73c1e61e4a63e0275e17f24ad5e8a2c0691c29bf02.png" />
+<img alt="../_images/3c8811e34de6395de2be98fda8559b462fa245067124735925bb62bb3717bc48.png" src="../_images/3c8811e34de6395de2be98fda8559b462fa245067124735925bb62bb3717bc48.png" />
+<img alt="../_images/90cdb27d149130f058156e23e140b9ff7f633c9b647049895a34523484b89e3c.png" src="../_images/90cdb27d149130f058156e23e140b9ff7f633c9b647049895a34523484b89e3c.png" />
+<img alt="../_images/a61f8b6e8434f1b235567edff4454b2d38a9b1541a58b775785254b40db1588c.png" src="../_images/a61f8b6e8434f1b235567edff4454b2d38a9b1541a58b775785254b40db1588c.png" />
+</div>
+</div>
+<section id="comparacion-de-modelos-lineal-y-knn-antes-vs-despues-de-la-optimizacion">
+<h5><strong>Comparación de Modelos: Lineal y KNN - Antes vs Después de la Optimización</strong><a class="headerlink" href="#comparacion-de-modelos-lineal-y-knn-antes-vs-despues-de-la-optimizacion" title="Permalink to this heading">#</a></h5>
+<p>Se aplicaron mejoras específicas a los modelos lineales y KNN para elevar su rendimiento:</p>
+<ul class="simple">
+<li><p>Para <strong>Linear Regression</strong>: se introdujo una transformación polinómica (grado 2).</p></li>
+<li><p>Para <strong>KNN</strong>: se ajustaron los hiperparámetros mediante búsqueda en grilla (<code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code>, <code class="docutils literal notranslate"><span class="pre">weights</span></code>, <code class="docutils literal notranslate"><span class="pre">p</span></code>).</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="linear-regression-con-y-sin-polynomialfeatures">
+<h5>1. Linear Regression (con y sin PolynomialFeatures)<a class="headerlink" href="#linear-regression-con-y-sin-polynomialfeatures" title="Permalink to this heading">#</a></h5>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Métrica</p></th>
+<th class="head"><p>Modelo Original</p></th>
+<th class="head"><p>Modelo con PolynomialFeatures</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>R²</p></td>
+<td><p>0.2555</p></td>
+<td><p>0.5897</p></td>
+</tr>
+<tr class="row-odd"><td><p>MSE</p></td>
+<td><p>0.00129</p></td>
+<td><p>0.00070</p></td>
+</tr>
+<tr class="row-even"><td><p>MAE</p></td>
+<td><p>0.0221</p></td>
+<td><p>0.0131</p></td>
+</tr>
+<tr class="row-odd"><td><p>Tiempo de Entrenamiento</p></td>
+<td><p>0.36 s</p></td>
+<td><p>3.82 s</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Análisis</strong>:<br />
+La transformación polinómica incrementó significativamente la capacidad predictiva del modelo, más que duplicando el R². El aumento en el tiempo de entrenamiento sigue siendo aceptable. Esto sugiere que el modelo original no capturaba relaciones no lineales presentes en los datos.</p>
+</section>
+<hr class="docutils" />
+<section id="k-nearest-neighbors-knn">
+<h5>2. K-Nearest Neighbors (KNN)<a class="headerlink" href="#k-nearest-neighbors-knn" title="Permalink to this heading">#</a></h5>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Métrica</p></th>
+<th class="head"><p>Modelo Original</p></th>
+<th class="head"><p>Modelo Optimizado</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>R²</p></td>
+<td><p>0.9999</p></td>
+<td><p>0.9999999</p></td>
+</tr>
+<tr class="row-odd"><td><p>MSE</p></td>
+<td><p>1.26e-07</p></td>
+<td><p>1.71e-10</p></td>
+</tr>
+<tr class="row-even"><td><p>MAE</p></td>
+<td><p>8.69e-06</p></td>
+<td><p>4.85e-06</p></td>
+</tr>
+<tr class="row-odd"><td><p>Tiempo de Entrenamiento</p></td>
+<td><p>3.80 s</p></td>
+<td><p>164.77 s</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Análisis</strong>:<br />
+Aunque el rendimiento ya era extremadamente alto, el modelo optimizado logra una mejora marginal adicional en las métricas de error. Sin embargo, el costo computacional es notablemente mayor, con un tiempo de entrenamiento 43 veces más alto. Esto sugiere que, si bien la optimización aporta precisión, debe usarse con criterio dependiendo de la disponibilidad de recursos.</p>
+</section>
+<hr class="docutils" />
+<section id="id39">
+<h5>Conclusión Comparativa<a class="headerlink" href="#id39" title="Permalink to this heading">#</a></h5>
+<ul class="simple">
+<li><p>La <strong>regresión lineal</strong> se beneficia de la transformación polinómica, especialmente en problemas donde existen relaciones cuadráticas o interacciones entre variables.</p></li>
+<li><p><strong>KNN</strong>, incluso sin optimización, ofrece un rendimiento sobresaliente, aunque con posible sobreajuste. La versión optimizada mejora levemente pero con gran costo computacional.</p></li>
+<li><p>Ambos modelos optimizados pueden servir como alternativas a modelos más complejos, pero el <strong>balance entre precisión y eficiencia</strong> debe guiar su elección según el contexto de uso.</p></li>
+</ul>
+</section>
+</section>
+</section>
 <section id="conclusion-final">
 <h3><strong>Conclusion final</strong><a class="headerlink" href="#conclusion-final" title="Permalink to this heading">#</a></h3>
 <p>En este análisis, <strong>no se aplicó un proceso de optimización adicional al modelo de Random Forest</strong>, ya que su entrenamiento original ya implicó una búsqueda de hiperparámetros para encontrar el mejor número de árboles (<code class="docutils literal notranslate"><span class="pre">n_estimators</span></code>). Sin embargo, debido a su <strong>elevado costo computacional</strong> (más de 30 minutos de entrenamiento), se decidió no continuar afinando este modelo para no comprometer la eficiencia temporal del sistema.</p>
@@ -2404,6 +2824,16 @@ El modelo Lasso optimizado mejora de manera moderada, aunque con un aumento cons
 <li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#ridge-regression-optimizado">1. Ridge Regression (Optimizado)</a></li>
 <li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#lasso-regression-optimizado">2. Lasso Regression (Optimizado)</a></li>
 <li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion-comparativa">Conclusión Comparativa</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#knn-and-regression-optimized"><strong>KNN and Regression (optimized)</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#analsis-de-regresion-lineal-y-knn-mejorados"><strong>Análsis de Regresion lineal y KNN mejorados</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#comparacion-de-modelos-lineal-y-knn-antes-vs-despues-de-la-optimizacion"><strong>Comparación de Modelos: Lineal y KNN - Antes vs Después de la Optimización</strong></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression-con-y-sin-polynomialfeatures">1. Linear Regression (con y sin PolynomialFeatures)</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#k-nearest-neighbors-knn">2. K-Nearest Neighbors (KNN)</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id39">Conclusión Comparativa</a></li>
 </ul>
 </li>
 </ul>

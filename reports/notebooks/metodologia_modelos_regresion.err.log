@@ -30,8 +30,8 @@ nbclient.exceptions.CellTimeoutError: A cell timed out while it was being execut
 The message was: Cell execution timed out.
 Here is a preview of the cell contents:
 -------------------
-['# === Predicted values for the training set using the KNN model ===', 'y_train_pred_knn = knn_model.predict(X_train)', '', '# === Plotting actual vs predicted values for the training set ===', 'plt.figure(figsize=(8, 6))']
+['# === Predicted values for the training set using the KNN model ===', '# Generate predictions for the training set using the trained KNN model', '# - y_train: Actual target values for the training set', '# - y_train_pred_knn: Predicted target values for the training set', 'y_train_pred_knn = knn_model.predict(X_train)']
 ...
-["plt.xlabel('Actual Values (y_train)')", "plt.ylabel('Predicted Values (y_train_pred)')", 'plt.legend()', 'plt.grid(alpha=0.3)', 'plt.show()']
+["plt.xlabel('Actual Values (y_train)')  # Label for the x-axis", "plt.ylabel('Predicted Values (y_train_pred)')  # Label for the y-axis", 'plt.legend()  # Add a legend to distinguish the scatter points and the ideal fit line', 'plt.grid(alpha=0.3)  # Add a grid with light transparency for better visualization', 'plt.show()  # Display the plot']
 -------------------
 
