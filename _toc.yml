@@ -10,7 +10,7 @@ chapters:
   - file: notebooks/metodologia_modelos_regresion
     title: Modelos de Regresión
 
-  - file: notebooks/metodologia_modelos_clasificacion
+  - file: notebooks/metodologia_modelos_clasificacion3
     title: Modelos de Clasificación
 
   - file: notebooks/resultados
