@@ -632,7 +632,7 @@ document.write(`
 R2: 0.9999273186688901
 MSE: 1.2585006654533117e-07
 MAE: 8.691024951373174e-06
-Training Time (s): 14.38
+Training Time (s): 14.15
 </pre></div>
 </div>
 </div>
@@ -697,20 +697,38 @@ Training Time (s): 14.38
 <h3><strong>Lineal Regression</strong><a class="headerlink" href="#lineal-regression" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Crear el modelo de regresión lineal</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Linear Regression Model ===</span>
+
+<span class="c1"># Create a pipeline for Linear Regression:</span>
+<span class="c1"># - Step 1: StandardScaler for feature scaling (mean=0, variance=1)</span>
+<span class="c1"># - Step 2: LinearRegression as the regression model</span>
 <span class="n">linear_model</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
-    <span class="p">(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span>  <span class="c1"># Estandarización</span>
-    <span class="p">(</span><span class="s1">&#39;model&#39;</span><span class="p">,</span> <span class="n">LinearRegression</span><span class="p">())</span>  <span class="c1"># Modelo lineal</span>
+    <span class="p">(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span>  <span class="c1"># Standardization</span>
+    <span class="p">(</span><span class="s1">&#39;model&#39;</span><span class="p">,</span> <span class="n">LinearRegression</span><span class="p">())</span>  <span class="c1"># Linear regression model</span>
 <span class="p">])</span>
 
-<span class="c1"># Entrenamiento y cálculo del tiempo</span>
-<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="n">linear_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="c1"># === Model Training and Timing ===</span>
 
-<span class="c1"># Predicción y evaluación</span>
+<span class="c1"># Start the timer to measure training time</span>
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>  <span class="c1"># Record the start time</span>
+
+<span class="c1"># Train the Linear Regression model using the training dataset</span>
+<span class="c1"># - X_train: Predictor variables for training</span>
+<span class="c1"># - y_train: Target variable for training</span>
+<span class="n">linear_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Stop the timer after training is complete</span>
+<span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>  <span class="c1"># Record the end time</span>
+
+<span class="c1"># === Prediction and Evaluation ===</span>
+
+<span class="c1"># Predict the target variable for the test dataset</span>
+<span class="c1"># - X_test: Predictor variables for testing</span>
+<span class="c1"># - y_pred_linear: Predicted values for the test set</span>
 <span class="n">y_pred_linear</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-<span class="n">linear_training_time</span> <span class="o">=</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span>
+
+<span class="c1"># Calculate the total training time in seconds</span>
+<span class="n">linear_training_time</span> <span class="o">=</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span>  <span class="c1"># Compute the elapsed training time</span>
 </pre></div>
 </div>
 </div>
@@ -719,20 +737,26 @@ Training Time (s): 14.38
 <h4><strong>Evalución</strong><a class="headerlink" href="#evalucion" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Almacenar resultados</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Store Linear Regression Results ===</span>
+<span class="c1"># Add the evaluation metrics for the Linear Regression model to the `model_results` dictionary</span>
+<span class="c1"># - &#39;R2&#39;: Coefficient of determination, measures the goodness of fit of the model</span>
+<span class="c1"># - &#39;MSE&#39;: Mean Squared Error, measures the average squared difference between actual and predicted values</span>
+<span class="c1"># - &#39;MAE&#39;: Mean Absolute Error, measures the average absolute difference between actual and predicted values</span>
+<span class="c1"># - &#39;Training Time (s)&#39;: Total training time in seconds, rounded to 2 decimal places</span>
 <span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Linear Regression&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;R2&#39;</span><span class="p">:</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_linear</span><span class="p">),</span>
-    <span class="s1">&#39;MSE&#39;</span><span class="p">:</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_linear</span><span class="p">),</span>
-    <span class="s1">&#39;MAE&#39;</span><span class="p">:</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_linear</span><span class="p">),</span>
-    <span class="s1">&#39;Training Time (s)&#39;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">linear_training_time</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="s1">&#39;R2&#39;</span><span class="p">:</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_linear</span><span class="p">),</span>  <span class="c1"># Calculate R² score for the test set</span>
+    <span class="s1">&#39;MSE&#39;</span><span class="p">:</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_linear</span><span class="p">),</span>  <span class="c1"># Calculate Mean Squared Error</span>
+    <span class="s1">&#39;MAE&#39;</span><span class="p">:</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_linear</span><span class="p">),</span>  <span class="c1"># Calculate Mean Absolute Error</span>
+    <span class="s1">&#39;Training Time (s)&#39;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">linear_training_time</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># Record training time rounded to 2 decimals</span>
 <span class="p">}</span>
 
-<span class="c1"># Imprimir resultados</span>
+<span class="c1"># === Print Linear Regression Results ===</span>
+<span class="c1"># Display the evaluation metrics for the Linear Regression model in a clear and structured format</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Linear Regression Results:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;R2:&quot;</span><span class="p">,</span> <span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Linear Regression&#39;</span><span class="p">][</span><span class="s1">&#39;R2&#39;</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MSE:&quot;</span><span class="p">,</span> <span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Linear Regression&#39;</span><span class="p">][</span><span class="s1">&#39;MSE&#39;</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MAE:&quot;</span><span class="p">,</span> <span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Linear Regression&#39;</span><span class="p">][</span><span class="s1">&#39;MAE&#39;</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training Time (s):&quot;</span><span class="p">,</span> <span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Linear Regression&#39;</span><span class="p">][</span><span class="s1">&#39;Training Time (s)&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;R2:&quot;</span><span class="p">,</span> <span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Linear Regression&#39;</span><span class="p">][</span><span class="s1">&#39;R2&#39;</span><span class="p">])</span>  <span class="c1"># Display R² score</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MSE:&quot;</span><span class="p">,</span> <span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Linear Regression&#39;</span><span class="p">][</span><span class="s1">&#39;MSE&#39;</span><span class="p">])</span>  <span class="c1"># Display Mean Squared Error</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MAE:&quot;</span><span class="p">,</span> <span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Linear Regression&#39;</span><span class="p">][</span><span class="s1">&#39;MAE&#39;</span><span class="p">])</span>  <span class="c1"># Display Mean Absolute Error</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training Time (s):&quot;</span><span class="p">,</span> <span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Linear Regression&#39;</span><span class="p">][</span><span class="s1">&#39;Training Time (s)&#39;</span><span class="p">])</span>  <span class="c1"># Display training time</span>
 </pre></div>
 </div>
 </div>
@@ -749,18 +773,28 @@ Training Time (s): 0.36
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Predicted values for the training set using the Linear Regression model ===</span>
+<span class="c1"># Generate predictions for the training set using the trained Linear Regression model</span>
 <span class="n">y_train_pred_linear</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
 
 <span class="c1"># === Plotting actual vs predicted values for the training set ===</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred_linear</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Linear Predictions&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">y_train</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_train</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span> <span class="p">[</span><span class="n">y_train</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_train</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Ideal Fit&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Actual vs Predicted (Training Set) - Linear Regression&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Actual Values (y_train)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Predicted Values (y_train_pred)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="c1"># Create a scatter plot to visualize the relationship between actual and predicted values</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># Set the figure size for better readability</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred_linear</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Linear Predictions&#39;</span>
+<span class="p">)</span>  <span class="c1"># Scatter plot of actual vs predicted values</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">y_train</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_train</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span>
+    <span class="p">[</span><span class="n">y_train</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_train</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span>
+    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
+    <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Ideal Fit&#39;</span><span class="p">,</span>
+<span class="p">)</span>  <span class="c1"># Plot the ideal fit line (y = x) for reference</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Actual vs Predicted (Training Set) - Linear Regression&#39;</span><span class="p">)</span>  <span class="c1"># Add a title to the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Actual Values (y_train)&#39;</span><span class="p">)</span>  <span class="c1"># Label for the x-axis</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Predicted Values (y_train_pred)&#39;</span><span class="p">)</span>  <span class="c1"># Label for the y-axis</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>  <span class="c1"># Add a legend to distinguish the scatter points and the ideal fit line</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>  <span class="c1"># Add a grid with light transparency for better visualization</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># Display the plot</span>
 </pre></div>
 </div>
 </div>
@@ -809,22 +843,36 @@ Training Time (s): 0.36
 <h3><strong>SVM Regressor</strong><a class="headerlink" href="#svm-regressor" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Soporte Vectorial para Regresión (SVR) ===</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Support Vector Regression (SVR) ===</span>
 
-<span class="c1"># Crear el pipeline con estandarización y SVR</span>
+<span class="c1"># Create a pipeline that includes:</span>
+<span class="c1"># - StandardScaler: Standardizes the predictor variables to have mean=0 and variance=1</span>
+<span class="c1"># - SVR: Support Vector Regression model with RBF kernel (default kernel, can be changed if needed)</span>
 <span class="n">svm_model</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
-    <span class="p">(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span>
-    <span class="p">(</span><span class="s1">&#39;model&#39;</span><span class="p">,</span> <span class="n">SVR</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;rbf&#39;</span><span class="p">))</span>  <span class="c1"># kernel puede ser cambiado si lo deseas</span>
+    <span class="p">(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span>  <span class="c1"># Step 1: Feature scaling for normalization</span>
+    <span class="p">(</span><span class="s1">&#39;model&#39;</span><span class="p">,</span> <span class="n">SVR</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;rbf&#39;</span><span class="p">))</span>  <span class="c1"># Step 2: SVR model with RBF kernel</span>
 <span class="p">])</span>
 
-<span class="c1"># Entrenamiento y cálculo del tiempo</span>
-<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="n">svm_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="c1"># === Model Training and Timing ===</span>
 
-<span class="c1"># Predicción y evaluación</span>
+<span class="c1"># Start the timer to measure training time</span>
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>  <span class="c1"># Record the start time</span>
+
+<span class="c1"># Train the SVR model using the training dataset</span>
+<span class="c1"># - X_train: Predictor variables for training</span>
+<span class="c1"># - y_train: Target variable for training</span>
+<span class="n">svm_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Stop the timer after training is complete</span>
+<span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>  <span class="c1"># Record the end time</span>
+
+<span class="c1"># Predict the target variable for the test dataset</span>
+<span class="c1"># - X_test: Predictor variables for testing</span>
+<span class="c1"># - y_pred_svm: Predicted values for the test set</span>
 <span class="n">y_pred_svm</span> <span class="o">=</span> <span class="n">svm_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-<span class="n">svm_training_time</span> <span class="o">=</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span>
+
+<span class="c1"># Calculate the total training time in seconds</span>
+<span class="n">svm_training_time</span> <span class="o">=</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span>  <span class="c1"># Compute the elapsed training time</span>
 </pre></div>
 </div>
 </div>
@@ -833,19 +881,26 @@ Training Time (s): 0.36
 <h4><strong>Evalución</strong><a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Almacenar resultados</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Store SVR Model Results ===</span>
+<span class="c1"># Add the evaluation metrics for the SVR model to the `model_results` dictionary</span>
+<span class="c1"># - &#39;R2&#39;: Coefficient of determination, measures the goodness of fit of the model</span>
+<span class="c1"># - &#39;MSE&#39;: Mean Squared Error, measures the average squared difference between actual and predicted values</span>
+<span class="c1"># - &#39;MAE&#39;: Mean Absolute Error, measures the average absolute difference between actual and predicted values</span>
+<span class="c1"># - &#39;Training Time (s)&#39;: Total training time in seconds, rounded to 2 decimal places</span>
 <span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;SVR&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;R2&#39;</span><span class="p">:</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_svm</span><span class="p">),</span>
-    <span class="s1">&#39;MSE&#39;</span><span class="p">:</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_svm</span><span class="p">),</span>
-    <span class="s1">&#39;MAE&#39;</span><span class="p">:</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_svm</span><span class="p">),</span>
-    <span class="s1">&#39;Training Time (s)&#39;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">svm_training_time</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="s1">&#39;R2&#39;</span><span class="p">:</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_svm</span><span class="p">),</span>  <span class="c1"># Calculate R² score for the test set</span>
+    <span class="s1">&#39;MSE&#39;</span><span class="p">:</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_svm</span><span class="p">),</span>  <span class="c1"># Calculate Mean Squared Error</span>
+    <span class="s1">&#39;MAE&#39;</span><span class="p">:</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_svm</span><span class="p">),</span>  <span class="c1"># Calculate Mean Absolute Error</span>
+    <span class="s1">&#39;Training Time (s)&#39;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">svm_training_time</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># Record training time rounded to 2 decimals</span>
 <span class="p">}</span>
-<span class="c1"># Imprimir resultados</span>
+
+<span class="c1"># === Print SVR Model Results ===</span>
+<span class="c1"># Display the evaluation metrics for the SVR model in a clear and structured format</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">SVR Results:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;R2:&quot;</span><span class="p">,</span> <span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;SVR&#39;</span><span class="p">][</span><span class="s1">&#39;R2&#39;</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MSE:&quot;</span><span class="p">,</span> <span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;SVR&#39;</span><span class="p">][</span><span class="s1">&#39;MSE&#39;</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MAE:&quot;</span><span class="p">,</span> <span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;SVR&#39;</span><span class="p">][</span><span class="s1">&#39;MAE&#39;</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training Time (s):&quot;</span><span class="p">,</span> <span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;SVR&#39;</span><span class="p">][</span><span class="s1">&#39;Training Time (s)&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;R2:&quot;</span><span class="p">,</span> <span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;SVR&#39;</span><span class="p">][</span><span class="s1">&#39;R2&#39;</span><span class="p">])</span>  <span class="c1"># Display R² score</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MSE:&quot;</span><span class="p">,</span> <span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;SVR&#39;</span><span class="p">][</span><span class="s1">&#39;MSE&#39;</span><span class="p">])</span>  <span class="c1"># Display Mean Squared Error</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MAE:&quot;</span><span class="p">,</span> <span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;SVR&#39;</span><span class="p">][</span><span class="s1">&#39;MAE&#39;</span><span class="p">])</span>  <span class="c1"># Display Mean Absolute Error</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training Time (s):&quot;</span><span class="p">,</span> <span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;SVR&#39;</span><span class="p">][</span><span class="s1">&#39;Training Time (s)&#39;</span><span class="p">])</span>  <span class="c1"># Display training time</span>
 </pre></div>
 </div>
 </div>
@@ -853,18 +908,28 @@ Training Time (s): 0.36
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Predicted values for the training set using the SVR model ===</span>
+<span class="c1"># Generate predictions for the training set using the trained SVR model</span>
 <span class="n">y_train_pred_svm</span> <span class="o">=</span> <span class="n">svm_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
 
 <span class="c1"># === Plotting actual vs predicted values for the training set ===</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred_svm</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;purple&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;SVR Predictions&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">y_train</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_train</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span> <span class="p">[</span><span class="n">y_train</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_train</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Ideal Fit&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Actual vs Predicted (Training Set) - SVR&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Actual Values (y_train)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Predicted Values (y_train_pred)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="c1"># Create a scatter plot to visualize the relationship between actual and predicted values</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># Set the figure size for better readability</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred_svm</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;purple&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;SVR Predictions&#39;</span>
+<span class="p">)</span>  <span class="c1"># Scatter plot of actual vs predicted values</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">y_train</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_train</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span>
+    <span class="p">[</span><span class="n">y_train</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_train</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span>
+    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
+    <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Ideal Fit&#39;</span><span class="p">,</span>
+<span class="p">)</span>  <span class="c1"># Plot the ideal fit line (y = x) for reference</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Actual vs Predicted (Training Set) - SVR&#39;</span><span class="p">)</span>  <span class="c1"># Add a title to the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Actual Values (y_train)&#39;</span><span class="p">)</span>  <span class="c1"># Label for the x-axis</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Predicted Values (y_train_pred)&#39;</span><span class="p">)</span>  <span class="c1"># Label for the y-axis</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>  <span class="c1"># Add a legend to distinguish the scatter points and the ideal fit line</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>  <span class="c1"># Add a grid with light transparency for better visualization</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># Display the plot</span>
 </pre></div>
 </div>
 </div>
