@@ -30,8 +30,8 @@ nbclient.exceptions.CellTimeoutError: A cell timed out while it was being execut
 The message was: Cell execution timed out.
 Here is a preview of the cell contents:
 -------------------
-['# === Optimal Number of Trees (n_estimators) Search ===', '', '# Base Random Forest model without hyperparameter tuning', 'rf_model = RandomForestRegressor(random_state=42)', '']
+['# === Predicted values for the training set using the KNN model ===', 'y_train_pred_knn = knn_model.predict(X_train)', '', '# === Plotting actual vs predicted values for the training set ===', 'plt.figure(figsize=(8, 6))']
 ...
-['grid_rf.fit(X_train, y_train)', '', '# Print the best number of trees (n_estimators) and the corresponding R² score', 'print("Best number of trees:", grid_rf.best_params_[\'n_estimators\'])  # Optimal n_estimators', 'print("Best R² from cross-validation:", round(grid_rf.best_score_, 4))  # Best R² score']
+["plt.xlabel('Actual Values (y_train)')", "plt.ylabel('Predicted Values (y_train_pred)')", 'plt.legend()', 'plt.grid(alpha=0.3)', 'plt.show()']
 -------------------
 
