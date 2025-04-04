@@ -448,7 +448,10 @@ document.write(`
 </li>
 </ul>
 </li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-final-con-todos-los-modelos-optimizados-y-no-optimizados"><strong>Análisis final con todos los modelos optimizados y no optimizados</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion-final"><strong>Conclusion final</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graficas-de-comparacion"><strong>Gráficas de Comparación</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion-global"><strong>Conclusión Global</strong></a></li>
 </ul>
 </li>
 </ul>
@@ -475,6 +478,7 @@ document.write(`
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression</span>
 <span class="c1"># importinng linear_model for linear regression</span>
+
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.svm</span><span class="w"> </span><span class="kn">import</span> <span class="n">SVR</span>
 <span class="c1"># Importing SVR for Support Vector Regression</span>
@@ -661,7 +665,7 @@ document.write(`
 R2: 0.9999273186688901
 MSE: 1.2585006654533117e-07
 MAE: 8.691024951373174e-06
-Training Time (s): 10.32
+Training Time (s): 13.58
 </pre></div>
 </div>
 </div>
@@ -2273,6 +2277,8 @@ El modelo Lasso optimizado mejora de manera moderada, aunque con un aumento cons
 <li><p>XGBoost continúa siendo el modelo más robusto en términos de desempeño predictivo.</p></li>
 <li><p>Se recomienda Ridge+Polynomial como modelo base interpretable, mientras que XGBoost es ideal para aplicaciones donde la precisión es crítica.</p></li>
 </ul>
+<p>En este análisis, <strong>no se aplicó un proceso de optimización adicional al modelo de Random Forest</strong>, ya que su entrenamiento original ya implicó una búsqueda de hiperparámetros para encontrar el mejor número de árboles (<code class="docutils literal notranslate"><span class="pre">n_estimators</span></code>). Sin embargo, debido a su <strong>elevado costo computacional</strong> (más de 30 minutos de entrenamiento), se decidió no continuar afinando este modelo para no comprometer la eficiencia temporal del sistema.</p>
+<p>Por otro lado, <strong>XGBoost fue entrenado con un conjunto de hiperparámetros optimizados</strong>, logrando un excelente equilibrio entre precisión y tiempo de entrenamiento. Debido a sus resultados sobresalientes (R² superior al 0.80 con un tiempo menor a 3 segundos), <strong>este modelo será considerado como el punto de referencia (baseline)</strong> a superar o igualar mediante modelos más simples y explicables como Ridge con características polinómicas. Esta estrategia permite balancear <strong>eficiencia, interpretabilidad y capacidad predictiva</strong> en futuras implementaciones.</p>
 </section>
 </section>
 </section>
@@ -2648,16 +2654,119 @@ Aunque el rendimiento ya era extremadamente alto, el modelo optimizado logra una
 <h5>Conclusión Comparativa<a class="headerlink" href="#id39" title="Permalink to this heading">#</a></h5>
 <ul class="simple">
 <li><p>La <strong>regresión lineal</strong> se beneficia de la transformación polinómica, especialmente en problemas donde existen relaciones cuadráticas o interacciones entre variables.</p></li>
-<li><p><strong>KNN</strong>, incluso sin optimización, ofrece un rendimiento sobresaliente, aunque con posible sobreajuste. La versión optimizada mejora levemente pero con gran costo computacional.</p></li>
-<li><p>Ambos modelos optimizados pueden servir como alternativas a modelos más complejos, pero el <strong>balance entre precisión y eficiencia</strong> debe guiar su elección según el contexto de uso.</p></li>
+<li><p><strong>KNN</strong>, incluso sin optimización, ofrece un rendimiento sobresaliente, aunque con posible <strong>sobreajuste</strong>. La versión optimizada mejora levemente pero con gran costo computacional.</p></li>
+<li><p>Ambos modelos optimizados pueden servir como alternativas a modelos más complejos, pero el <strong>balance entre precisión y eficiencia</strong> debe guiar su elección según el contexto de uso, no obstante se concluye que la diferencia en mejora de precision <strong>no es significativa</strong>.</p></li>
 </ul>
 </section>
 </section>
 </section>
+<section id="analisis-final-con-todos-los-modelos-optimizados-y-no-optimizados">
+<h3><strong>Análisis final con todos los modelos optimizados y no optimizados</strong><a class="headerlink" href="#analisis-final-con-todos-los-modelos-optimizados-y-no-optimizados" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define a color palette for the models</span>
+<span class="n">model_colors</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Linear&#39;</span><span class="p">:</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Ridge&#39;</span><span class="p">:</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Lasso&#39;</span><span class="p">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Ridge_Poly&#39;</span><span class="p">:</span> <span class="s1">&#39;purple&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Lasso_Poly&#39;</span><span class="p">:</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Linear_Poly&#39;</span><span class="p">:</span> <span class="s1">&#39;cyan&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;KNN&#39;</span><span class="p">:</span> <span class="s1">&#39;pink&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;KNN_Opt&#39;</span><span class="p">:</span> <span class="s1">&#39;yellow&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Random Forest&#39;</span><span class="p">:</span> <span class="s1">&#39;brown&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;XGBoost&#39;</span><span class="p">:</span> <span class="s1">&#39;gray&#39;</span>
+<span class="p">}</span>
+
+<span class="c1"># Convert the dictionary to a DataFrame</span>
+<span class="n">df_all_models</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">model_results</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+<span class="c1"># Create bar plots for each metric</span>
+<span class="n">metrics</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;R2&#39;</span><span class="p">,</span> <span class="s1">&#39;MSE&#39;</span><span class="p">,</span> <span class="s1">&#39;MAE&#39;</span><span class="p">,</span> <span class="s1">&#39;Training Time (s)&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">metric</span> <span class="ow">in</span> <span class="n">metrics</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="n">bars</span> <span class="o">=</span> <span class="n">df_all_models</span><span class="p">[</span><span class="n">metric</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> 
+        <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="n">model_colors</span><span class="p">[</span><span class="n">model</span><span class="p">]</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">df_all_models</span><span class="o">.</span><span class="n">index</span><span class="p">],</span>  <span class="c1"># Apply colors</span>
+        <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span>
+    <span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Comparación de modelos por </span><span class="si">{</span><span class="n">metric</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">metric</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/913854a3f3703074c0e2606c9835c70dbea73ad28b16e9a43cd89715fae5436a.png" src="../_images/913854a3f3703074c0e2606c9835c70dbea73ad28b16e9a43cd89715fae5436a.png" />
+<img alt="../_images/4ef2bbfa566f97815cd5941d4e18d88541ce80fe37f6601c5f5752b750fdb01a.png" src="../_images/4ef2bbfa566f97815cd5941d4e18d88541ce80fe37f6601c5f5752b750fdb01a.png" />
+<img alt="../_images/d6f95bc4cd9a599133e8833c0bd985835698031d5d291e61428cc6dd9e24babe.png" src="../_images/d6f95bc4cd9a599133e8833c0bd985835698031d5d291e61428cc6dd9e24babe.png" />
+<img alt="../_images/06cad9443fd3b09ca2bde2f2954bce5225d7d4248b6d4b6e34eb2028f9c28bbe.png" src="../_images/06cad9443fd3b09ca2bde2f2954bce5225d7d4248b6d4b6e34eb2028f9c28bbe.png" />
+</div>
+</div>
+</section>
 <section id="conclusion-final">
 <h3><strong>Conclusion final</strong><a class="headerlink" href="#conclusion-final" title="Permalink to this heading">#</a></h3>
-<p>En este análisis, <strong>no se aplicó un proceso de optimización adicional al modelo de Random Forest</strong>, ya que su entrenamiento original ya implicó una búsqueda de hiperparámetros para encontrar el mejor número de árboles (<code class="docutils literal notranslate"><span class="pre">n_estimators</span></code>). Sin embargo, debido a su <strong>elevado costo computacional</strong> (más de 30 minutos de entrenamiento), se decidió no continuar afinando este modelo para no comprometer la eficiencia temporal del sistema.</p>
-<p>Por otro lado, <strong>XGBoost fue entrenado con un conjunto de hiperparámetros optimizados</strong>, logrando un excelente equilibrio entre precisión y tiempo de entrenamiento. Debido a sus resultados sobresalientes (R² superior al 0.80 con un tiempo menor a 3 segundos), <strong>este modelo será considerado como el punto de referencia (baseline)</strong> a superar o igualar mediante modelos más simples y explicables como Ridge con características polinómicas. Esta estrategia permite balancear <strong>eficiencia, interpretabilidad y capacidad predictiva</strong> en futuras implementaciones.</p>
+<p>A lo largo del estudio se evaluaron diez configuraciones de modelos, incluyendo variantes clásicas, polinómicas y optimizadas de regresión lineal, KNN, Ridge y Lasso, además de Random Forest y XGBoost. Se compararon según <strong>R²</strong>, <strong>MSE</strong>, <strong>MAE</strong> y <strong>tiempo de entrenamiento</strong>.</p>
+</section>
+<hr class="docutils" />
+<section id="graficas-de-comparacion">
+<h3><strong>Gráficas de Comparación</strong><a class="headerlink" href="#graficas-de-comparacion" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>R² (Bondad de ajuste)</strong><br />
+Los modelos que más explican la variabilidad del <code class="docutils literal notranslate"><span class="pre">SolarIndex</span></code> son:</p>
+<ul class="simple">
+<li><p><strong>KNN Optimizado</strong> y <strong>Random Forest</strong> (~1.0)</p></li>
+<li><p><strong>XGBoost</strong> (0.80)</p></li>
+<li><p><strong>Ridge/Lin. Poly</strong> (~0.58)</p></li>
+</ul>
+</li>
+<li><p><strong>MSE (Error Cuadrático Medio)</strong></p>
+<ul class="simple">
+<li><p><strong>KNN Optimizado</strong> y <strong>Random Forest</strong> tienen los errores más bajos.</p></li>
+<li><p>Los modelos lineales simples y Lasso tienen errores más elevados.</p></li>
+</ul>
+</li>
+<li><p><strong>MAE (Error Absoluto Medio)</strong></p>
+<ul class="simple">
+<li><p>Similar tendencia al MSE.</p></li>
+<li><p><strong>XGBoost</strong> y modelos polinómicos de Ridge destacan por su equilibrio entre precisión y simplicidad.</p></li>
+</ul>
+</li>
+<li><p><strong>Tiempo de Entrenamiento</strong></p>
+<ul class="simple">
+<li><p><strong>Linear Regression</strong> (0.36s) y <strong>XGBoost</strong> (2.4s) son los más eficientes.</p></li>
+<li><p><strong>KNN Optimizado</strong> (164s), <strong>Ridge Poly</strong> (99s), <strong>Lasso Poly</strong> (258s) y <strong>Random Forest</strong> (1910s) muestran los mayores costos computacionales.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="conclusion-global">
+<h3><strong>Conclusión Global</strong><a class="headerlink" href="#conclusion-global" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Mejor Modelo Global</strong>:<br />
+<strong>XGBoost</strong>, por su equilibrio entre rendimiento (R² alto) y eficiencia computacional, candidato a superar con el modelo propuesto.</p></li>
+<li><p><strong>Modelos con Mejora Significativa</strong>:</p>
+<ul>
+<li><p><strong>Ridge Poly</strong>: duplicó su R² con términos polinómicos.</p></li>
+<li><p><strong>Lasso Poly</strong>: incrementó su rendimiento a costa de mucho tiempo.</p></li>
+<li><p><strong>Linear Poly</strong>: mejora considerable con bajo impacto en el tiempo.</p></li>
+</ul>
+</li>
+<li><p><strong>Cuidado con el Overfitting</strong>:</p>
+<ul>
+<li><p><strong>Random Forest</strong> y <strong>KNN Optimizado</strong> deben validarse externamente para confirmar su generalización.</p></li>
+</ul>
+</li>
+<li><p><strong>Modelos Base Recomendados</strong>:</p>
+<ul>
+<li><p><strong>Linear Poly</strong> y <strong>Ridge Poly</strong>, por ser explicables y computacionalmente viables.</p></li>
+</ul>
+</li>
+</ul>
 </section>
 </section>
 </section>
@@ -2838,7 +2947,10 @@ Aunque el rendimiento ya era extremadamente alto, el modelo optimizado logra una
 </li>
 </ul>
 </li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-final-con-todos-los-modelos-optimizados-y-no-optimizados"><strong>Análisis final con todos los modelos optimizados y no optimizados</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion-final"><strong>Conclusion final</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graficas-de-comparacion"><strong>Gráficas de Comparación</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion-global"><strong>Conclusión Global</strong></a></li>
 </ul>
 </li>
 </ul>
